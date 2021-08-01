@@ -145,7 +145,7 @@ public class C206_CaseStudy {
 	
 	// ================================= Option 3 - Customer =================================
 	
-	// ================================= Option 3.1 - View Menu Items =================================
+	// Option 3.1 - View Menu food Items (Same as View food Items) (Done at Canteen Admin)
 	
 	// ================================= Option 3.2.1 - Place Order =================================
 	// ================================= Option 3.2.2 - Calculate total =================================
