@@ -1,4 +1,4 @@
-
+//HuiTing
 public class FoodItem {
 	private String foodItemName;
 	private int foodItemSellingPrice;
