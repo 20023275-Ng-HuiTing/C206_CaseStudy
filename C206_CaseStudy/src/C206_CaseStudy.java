@@ -1,7 +1,10 @@
+import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
 	public static void main(String[] args) {
+		
+		ArrayList<FoodItem> foodItemList = new ArrayList<FoodItem>();
 
 		int option = 0;
 		int optionCA = 0;
