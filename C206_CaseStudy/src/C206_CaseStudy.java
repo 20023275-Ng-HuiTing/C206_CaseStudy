@@ -313,10 +313,59 @@ public class C206_CaseStudy {
 		}
 	}
 
-	// ================================= Option 1.2.1 - Add food Items =================================
-	// ================================= Option 1.2.2 - View food Items =================================
-	// ================================= Option 1.2.3 - Change food Items =================================
-	// ================================= Option 1.2.4 - Remove food Items =================================
+	// ================================= Option 1.2.1 - Add food Items   =================================
+	// Charlene
+	  public static ArrayList<FoodItem> addFoodItem(String foodItemName, int foodItemSellingPrice, ArrayList<FoodItem> foodItemList){
+	    foodItemList.add(new FoodItem(foodItemName, foodItemSellingPrice));
+	    return foodItemList;
+	  }
+	  
+	  // ================================= Option 1.2.2 - View food Items   =================================
+	  // Charlene
+	  public static void viewFoodItem(String foodItemName, ArrayList<FoodItem> foodItemList){
+	    boolean found = false;
+	    for (FoodItem food : foodItemList) {
+	          if (food.getFoodItemName().equals(foodItemName)) {
+	              found = true;
+	              System.out.println("Food Name: " + food.getFoodItemName() + "\nFood Price: " + food.getFoodItemSellingPrice());
+	          }
+	      }
+	    if (found == false) {
+	      System.out.println("Food not found");
+	    }
+	  }
+	  
+	  // ================================= Option 1.2.3 - Change food Items   =================================
+	  // Charlene
+	  public static void listFoodItem(ArrayList<FoodItem> foodItemList){
+	    int count = 1;
+	    C206_CaseStudy.setHeader();
+	    System.out.println("All Food items");
+	    Helper.line(80, "-");
+	    for (FoodItem food : foodItemList) {
+	      System.out.println(count + ". Food Name: " + food.getFoodItemName() + " - $" + food.getFoodItemSellingPrice());
+	      count++;
+	    }
+	    Helper.line(80, "-");
+	  }
+	  
+	  public static void changeFoodItem(String foodItemName, ArrayList<FoodItem> foodItemList){
+	    C206_CaseStudy.listFoodItem(foodItemList);
+	    int optionFood = Helper.readInt("Enter an option > ");
+	    String newName = Helper.readString("Enter new name for food: ");
+	    int newPrice = Helper.readInt("Enter new selling price for food: ");
+	    foodItemList.get(optionFood - 1).setFoodItemName(newName);
+	    foodItemList.get(optionFood - 1).setFoodItemSellingPrice(newPrice);
+	  }
+	  
+	  // ================================= Option 1.2.4 - Remove food Items   =================================
+	  // Charlene
+	  public static void removeFoodItem(String foodItemName, ArrayList<FoodItem> foodItemList){
+	    C206_CaseStudy.listFoodItem(foodItemList);
+	    int optionFood = Helper.readInt("Enter an option > ");
+	    foodItemList.remove(optionFood - 1);
+	    System.out.println("Remove successfully.");
+	  }
 
 	// Option 1.3 - View Promotion Offers (Done at Stall Staff)
 
