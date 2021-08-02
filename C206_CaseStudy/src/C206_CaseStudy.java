@@ -15,7 +15,8 @@ public class C206_CaseStudy {
 		int optionCA = 0;
 		int optionSS = 0;
 		int optionCus = 0;
-		int optionCAS =0;
+		int optionCAS = 0;
+		int optionCAFI = 0;
 
 		while (option != 4) { // users select which role they are
 			C206_CaseStudy.menuRole();
@@ -56,12 +57,33 @@ public class C206_CaseStudy {
 					
 					
 					} else if (optionCA == 2) { // Manage food items
-					
+						C206_CaseStudy.menuCAFI();
+						optionCAFI = Helper.readInt("Enter an option > ");
+						
+						while (optionCAFI != 5) {
+							if (optionCAFI == 1) { // Add new food item
+								C206_CaseStudy.addFoodItem(null, optionCAFI, foodItemList);
+								 
+							} else if (optionCAFI == 2) { // View food items
+								C206_CaseStudy.viewFoodItem(null, foodItemList);
+								
+							} else if( optionCAFI == 3) { // Change food items
+								C206_CaseStudy.listFoodItem(foodItemList);
+								C206_CaseStudy.changeFoodItem(null, foodItemList);
+								
+							} else if (optionCAFI == 4) {// Delete food item
+								C206_CaseStudy.removeFoodItem(null, foodItemList);
+								
+							} else if (optionCAFI == 5) {
+								System.out.println("Quit...");
+								
+							} else {
+								System.out.println("invalid option");
+							}
+						}
 					} else if (optionCA == 3) { // View Promotion Offers
 						
 					} else if (optionCA == 4) { // Receive Purchase Orders
-						
-
 						
 					} else if (optionCA == 5) { // Generate sales report
 
@@ -134,6 +156,13 @@ public class C206_CaseStudy {
 		System.out.println("Manage Canteen Stalls");
 		Helper.line(80, "-");
 		System.out.println("1.Add New Stall\n2.View Stall\n3.Remove Stall\n4.Update Stall");
+	}
+	
+	public static void menuCAFI() {
+		C206_CaseStudy.setHeader();
+		System.out.println("Manage Food Items");
+		Helper.line(80, "-");
+		System.out.println("1.Add Food Items\n2.View Food Items\n3.Change Food Items\n4.Remove Food Items\n5. Quit");
 	}
 
 	public static void menuSS() {
