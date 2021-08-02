@@ -169,6 +169,7 @@ public class C206_CaseStudy {
 	// ================================= Option 1 - Canteen Admin =================================
 	
 	// ================================= Option 1.1.1 - Add stalls   =================================
+	//gary
 	public static Stall inputStall() {
 		String sname = Helper.readString("Enter Stall Name > ");
 		String doo = Helper.readString("Enter Date of Operation > ");
@@ -189,6 +190,7 @@ public class C206_CaseStudy {
 		
 	
 	// ================================= Option 1.1.2 - View stalls   =================================
+	//gary
 	
 	public static String retrieveAllStall(ArrayList<Stall> StallList) {
 		String output = "";
@@ -236,6 +238,7 @@ public class C206_CaseStudy {
 
 	
 	// ================================= Option 1.1.3 - Change stalls   =================================
+	//gary
 	public static boolean UpdateStall(ArrayList<Stall> StallList,String date) {
 		String date2 = Helper.readString("Enter date of operation > ");
 		String name2 = Helper.readString("Enter Stall name > ");
@@ -274,6 +277,7 @@ public class C206_CaseStudy {
 	
 	
 	// ================================= Option 1.1.4 - Remove stalls   =================================
+	//gary
 
 	private static void deleteStall(ArrayList<Stall> StallList) {
 		System.out.println("1. Name");
