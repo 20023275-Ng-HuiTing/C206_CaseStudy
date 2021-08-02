@@ -1,10 +1,14 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class C206_CaseStudy {
 
 	public static void main(String[] args) {
 		
 		ArrayList<FoodItem> foodItemList = new ArrayList<FoodItem>();
+		foodItemList.add(new FoodItem("food", 1));
+		ArrayList<CustomerOrder> orderList = new ArrayList<CustomerOrder>();
 
 		int option = 0;
 		int optionCA = 0;
@@ -58,7 +62,7 @@ public class C206_CaseStudy {
 					if (optionCus == 1) { // View Menu Items
 
 					} else if (optionCus == 2) { // Place Order
-
+						C206_CaseStudy.placeOrder(foodItemList);
 					} else if (optionCus == 3) { // Manage Orders
 
 					} else if (optionCus == 4) {
@@ -150,8 +154,46 @@ public class C206_CaseStudy {
 	
 	// Option 3.1 - View Menu food Items (Same as View food Items) (Done at Canteen Admin)
 	
-	// ================================= Option 3.2.1 - Place Order =================================
-	// ================================= Option 3.2.2 - Calculate total =================================
+	// ================================= Option 3.2(1) - Place Order =================================
+	private static void placeOrder(ArrayList<FoodItem> foodItemList) {
+		int counter = 0;
+		String cont = "";
+		
+		while (!(cont.equalsIgnoreCase("N"))) {
+			String foodName = Helper.readString("Enter food item's name > ");
+			// CustomerOrder(String foodItemName, int foodItemSellingPrice, LocalDate orderDate, int orderQty)
+			for (FoodItem i : foodItemList) {
+				if (i.getFoodItemName().equals(foodName)) {
+
+					int foodItemQty = Helper.readInt("Enter food item's quantity > ");
+					counter = counter + foodItemQty;
+
+					if (counter < 5) {
+						String conti = Helper.readString("Continue to add more food items? (Y/N) > ");
+						if (conti.equalsIgnoreCase("Y")) {
+							cont = "Y";
+						} else {
+							System.out.println("Automatically submitting order...");
+							cont = "N";
+						}
+					} else if (counter == 5) {
+						System.out.println("Order has the maximum number of food items! (Max: 5)");
+						System.out.println("Automatically submitting order...");
+						cont = "N";
+					} else {
+						System.out.println("Exceeded maximum number of food items! (Max: 5)");
+						System.out.println("Please order again!");
+						cont = "N";
+					}
+				} else {
+					System.out.println("Invalid food item name.\nPlease order again!");
+					cont = "N";
+				}
+			}
+		}
+		System.out.println("Returning back to Main Menu (Customer)");
+	}
+	// ================================= Option 3.2(2) - Calculate total =================================
 	
 	// ================================= Option 3.3.1 - Add Orders =================================
 	// ================================= Option 3.3.2 - View Orders =================================

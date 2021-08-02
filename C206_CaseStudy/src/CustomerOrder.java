@@ -1,17 +1,18 @@
-import java.util.Date;
+import java.time.LocalDate;
 // Hui Ting
 
 public class CustomerOrder extends FoodItem {
-	private Date orderDate;
+	private LocalDate orderDate;
 	private int orderQty;
 
-	public CustomerOrder(String foodItemName, int foodItemSellingPrice, Date orderDate, int orderQty) {
+	public CustomerOrder(String foodItemName, int foodItemSellingPrice, LocalDate orderDate, int orderQty) {
 		super(foodItemName, foodItemSellingPrice);
 		this.orderDate = orderDate;
 		this.orderQty = orderQty;
 	}
 
-	public Date getOrderDate() {
+	public LocalDate getOrderDate() {
+		LocalDate orderDate = java.time.LocalDate.now();
 		return orderDate;
 	}
 
