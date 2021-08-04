@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class C206_CaseStudy {
@@ -5,9 +6,12 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 		
 		ArrayList<FoodItem> foodItemList = new ArrayList<FoodItem>();
-		foodItemList.add(new FoodItem("food", 1));
+		//for testing
+		foodItemList.add(new FoodItem("food", 2));
 		
 		ArrayList<CustomerOrder> orderList = new ArrayList<CustomerOrder>();
+		//for testing
+		orderList.add(new CustomerOrder(1, "food", 1, 1));
 
 		ArrayList<Stall> StallList = new ArrayList<Stall>();
 
@@ -16,7 +20,8 @@ public class C206_CaseStudy {
 		int optionSS = 0;
 		int optionCus = 0;
 		int optionCAS = 0;
-		int optionCAFI = 0;
+		int optionCAFI = 0; 
+		int optionCusO = 0;
 
 		while (option != 4) { // users select which role they are
 			C206_CaseStudy.menuRole();
@@ -32,7 +37,6 @@ public class C206_CaseStudy {
 						while (optionCA !=6){
 						 optionCAS = Helper.readInt("Enter an option > ");
 						
-							
 							if (optionCAS == 1) {// Add new Stall
 								 Stall ns = inputStall();
 								 C206_CaseStudy.addStall(StallList, ns);
@@ -50,11 +54,8 @@ public class C206_CaseStudy {
 							}
 							else {
 								System.out.println("invalid option");
-								 
 							}
-							
 						}
-					
 					
 					} else if (optionCA == 2) { // Manage food items
 						C206_CaseStudy.menuCAFI();
@@ -114,10 +115,39 @@ public class C206_CaseStudy {
 					C206_CaseStudy.menuCus();
 					optionCus = Helper.readInt("Enter an option > ");
 					if (optionCus == 1) { // View Menu Items
-
+						C206_CaseStudy.viewFoodItem(null, foodItemList);
+						
 					} else if (optionCus == 2) { // Place Order
-						C206_CaseStudy.placeOrder(foodItemList);
+						CustomerOrder co = inputOrder(foodItemList, orderList);
+						C206_CaseStudy.addOrder(orderList, co);
+						
 					} else if (optionCus == 3) { // Manage Orders
+						C206_CaseStudy.menuCusO();
+						optionCusO = Helper.readInt("Enter an option > ");
+						
+						while (optionCusO != 5) {
+							if (optionCusO == 1) { // Add order
+								CustomerOrder co = inputOrder(foodItemList, orderList);
+								C206_CaseStudy.addOrder(orderList, co);
+								
+							} else if (optionCusO == 2) { // View order
+								C206_CaseStudy.viewAllOrders(orderList);
+								
+							} else if( optionCusO == 3) { // Change order
+								C206_CaseStudy.changeOrder(orderList);
+								
+							} else if (optionCusO == 4) {// Delete order
+								C206_CaseStudy.removeOrder(orderList);
+								
+							} else if (optionCusO == 5) {
+								System.out.println("Quit...");
+								
+							} else {
+								System.out.println("Invalid option");
+							}
+							C206_CaseStudy.menuCusO();
+							optionCusO = Helper.readInt("Enter an option > ");
+						}
 
 					} else if (optionCus == 4) {
 						System.out.println("Return back to Role Selection...");
@@ -180,6 +210,13 @@ public class C206_CaseStudy {
 		System.out.println("1. View Menu Items\n2. Place Order\n3. Manage Orders\n4. Quit");
 	}
 
+	public static void menuCusO() {
+		C206_CaseStudy.setHeader();
+		System.out.println("Manage Orders");
+		Helper.line(80, "-");
+		System.out.println("1.Add Orders\n2.View Orders\n3.Change Orders\n4.Remove Orders\n5. Quit");
+	}
+	
 	public static void setHeader() {
 		Helper.line(80, "=");
 		System.out.println("Canteen Automation System (CAS)");
@@ -421,49 +458,112 @@ public class C206_CaseStudy {
 	// Option 3.1 - View Menu food Items (Same as View food Items) (Done at Canteen Admin)
 
 	// ================================= Option 3.2(1) - Place Order =================================
-	private static void placeOrder(ArrayList<FoodItem> foodItemList) {
-		int counter = 0;
-		String cont = "";
-
-		while (!(cont.equalsIgnoreCase("N"))) {
-			String foodName = Helper.readString("Enter food item's name > ");
-			// CustomerOrder(String foodItemName, int foodItemSellingPrice, LocalDate
-			// orderDate, int orderQty)
-			for (FoodItem i : foodItemList) {
-				if (i.getFoodItemName().equals(foodName)) {
-
-					int foodItemQty = Helper.readInt("Enter food item's quantity > ");
-					counter = counter + foodItemQty;
-
-					if (counter < 5) {
-						String conti = Helper.readString("Continue to add more food items? (Y/N) > ");
-						if (conti.equalsIgnoreCase("Y")) {
-							cont = "Y";
+	//Hui Ting
+	public static CustomerOrder inputOrder(ArrayList<FoodItem> foodItemList, ArrayList<CustomerOrder> orderList) {
+		int foodItemQty = 0;
+		int sellingprice = 0;
+		String foodName = "";
+		CustomerOrder co = null;
+				
+		int orderid = Helper.readInt("Enter order ID > ");
+		
+		for (CustomerOrder o : orderList) {
+			if (orderid != o.getOrderID()) {
+				foodName = Helper.readString("Enter food item's name > ");
+				for (FoodItem i : foodItemList) {
+					if (foodName.equals(i.getFoodItemName())) {
+						sellingprice = i.getFoodItemSellingPrice();
+						foodItemQty = Helper.readInt("Enter food item's quantity > ");
+						if (foodItemQty <= 5) {
+							co = new CustomerOrder(orderid, foodName, sellingprice, foodItemQty);
 						} else {
-							System.out.println("Automatically submitting order...");
-							cont = "N";
+							System.out.println("Order quantity exceeded. (Max: 5)");
+							break;
 						}
-					} else if (counter == 5) {
-						System.out.println("Order has the maximum number of food items! (Max: 5)");
-						System.out.println("Automatically submitting order...");
-						cont = "N";
 					} else {
-						System.out.println("Exceeded maximum number of food items! (Max: 5)");
-						System.out.println("Please order again!");
-						cont = "N";
+						System.out.println("Invalid food item name\nPlease order again!");
 					}
-				} else {
-					System.out.println("Invalid food item name.\nPlease order again!");
-					cont = "N";
 				}
+			} else {
+				System.out.println("Invalid Order ID\nPlease order again!");
 			}
 		}
-		System.out.println("Returning back to Main Menu (Customer)");
+		return co;
+	}
+		
+	// ================================= Option 3.2(2) - Calculate total =================================
+	//Hui Ting
+	public static int getOrderTotalAmount(ArrayList<CustomerOrder> orderList) {
+		int total = 0;
+		for (CustomerOrder i : orderList) {
+			total += i.getOrderQty() * i.getFoodItemSellingPrice();
+		}
+		return total;
+	}
+
+	// ================================= Option 3.3.1 - Add Orders =================================
+	public static void addOrder(ArrayList<CustomerOrder> orderList, CustomerOrder co) {
+		if (co != null) {
+			orderList.add(co);
+			System.out.println("Order added");
+		} else {
+			System.out.println("Order adding failed");
+		}
+	}
+	
+	// ================================= Option 3.3.2 - View Orders =================================
+	public static String getOrder(ArrayList<CustomerOrder> orderList) {
+		String output = "";
+
+		for (CustomerOrder o : orderList) {
+			output += o.printInfo();
+		}
+		output += "Order Total Amount: $" + Integer.toString(getOrderTotalAmount(orderList)) + "\n";
+		return output;
+	}
+	
+	public static String getOrderDate() {
+		LocalDate orderDate = LocalDate.now();
+		String orderdate = orderDate.toString();
+		return orderdate;
+	}
+	
+	public static void viewAllOrders(ArrayList<CustomerOrder> orderList) {
+		System.out.println("ALL ORDERS");
+		Helper.line(50, "-");
+		String output = "Order Date: " + getOrderDate() + "\n";
+		output += String.format("%-5s %-10s %-10s\n", "ID",  "Food Name", "Quantity");
+		output += getOrder(orderList);
+		System.out.println(output);
+	}
+	
+	// ================================= Option 3.3.3 - Change Orders =================================
+	// Hui Ting
+	public static void changeOrder(ArrayList<CustomerOrder> orderList) {
+		
+	}
+	
+	// ================================= Option 3.3.4 - Remove Orders =================================
+	// Hui Ting
+	public static void removeOrder(ArrayList<CustomerOrder> orderList) {
+		boolean isValid = false;
+		int input = Helper.readInt("Enter an existing Order ID > ");
+		
+		for (CustomerOrder o : orderList) {
+			if (input == o.getOrderID()) {
+				isValid = true;
+				char cfm = Helper.readChar("Are you sure? (Y/N) > ");
+				if (cfm == 'Y' || cfm == 'y') {
+					orderList.remove(o);
+				} else {
+					System.out.println("Removal of Order cancelled...");
+				
+				}
+			}
+			break;
+		}
+		if (isValid == false) {
+			System.out.println("Order ID does not exist.");
+		}
 	}
 }
-// ================================= Option 3.2(2) - Calculate total =================================
-
-// ================================= Option 3.3.1 - Add Orders =================================
-// ================================= Option 3.3.2 - View Orders =================================
-// ================================= Option 3.3.3 - Change Orders =================================
-// ================================= Option 3.3.4 - Remove Orders =================================

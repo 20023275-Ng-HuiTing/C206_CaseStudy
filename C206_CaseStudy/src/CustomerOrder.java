@@ -1,19 +1,22 @@
-import java.time.LocalDate;
+
 // Hui Ting
 
 public class CustomerOrder extends FoodItem {
-	private LocalDate orderDate;
+	private int orderID;
 	private int orderQty;
 
-	public CustomerOrder(String foodItemName, int foodItemSellingPrice, LocalDate orderDate, int orderQty) {
+	public CustomerOrder(int orderID, String foodItemName, int foodItemSellingPrice, int orderQty) {
 		super(foodItemName, foodItemSellingPrice);
-		this.orderDate = orderDate;
+		this.orderID = orderID;
 		this.orderQty = orderQty;
 	}
 
-	public LocalDate getOrderDate() {
-		LocalDate orderDate = java.time.LocalDate.now();
-		return orderDate;
+	public int getOrderID() {
+		return orderID;
+	}
+
+	public void setOrderID(int orderID) {
+		this.orderID = orderID;
 	}
 
 	public int getOrderQty() {
@@ -24,14 +27,8 @@ public class CustomerOrder extends FoodItem {
 		this.orderQty = orderQty;
 	}
 
-	public int getOrderTotalAmount() {
-		int total = getOrderQty() * getFoodItemSellingPrice();
-		return total;
-	}
-
 	public String printInfo() {
-		String output = String.format("%-10s %-10s %-10d %-10d", getOrderDate(), getFoodItemName(), getOrderQty(),
-				getOrderTotalAmount());
+		String output = String.format("%-5s %-10s %-10d\n", getOrderID(), getFoodItemName(), getOrderQty());
 		return output;
 	}
 
