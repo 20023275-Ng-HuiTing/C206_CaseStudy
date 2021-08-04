@@ -532,7 +532,7 @@ public class C206_CaseStudy {
 		System.out.println("ALL ORDERS");
 		Helper.line(50, "-");
 		String output = "Order Date: " + getOrderDate() + "\n";
-		output += String.format("%-5s %-10s %-10s\n", "ID",  "Food Name", "Quantity");
+		output += String.format("%-5s %-10s %-10s %-10s\n", "ID",  "Food Name", "Food Price", "Quantity");
 		output += getOrder(orderList);
 		System.out.println(output);
 	}

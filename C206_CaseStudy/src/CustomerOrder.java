@@ -28,7 +28,7 @@ public class CustomerOrder extends FoodItem {
 	}
 
 	public String printInfo() {
-		String output = String.format("%-5s %-10s %-10d\n", getOrderID(), getFoodItemName(), getOrderQty());
+		String output = String.format("%-5s %-10s $%-10d %-10d\n", getOrderID(), getFoodItemName(), getFoodItemSellingPrice(), getOrderQty());
 		return output;
 	}
 
