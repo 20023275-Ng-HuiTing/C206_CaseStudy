@@ -10,6 +10,7 @@ public class C206_CaseStudy {
 		foodItemList.add(new FoodItem("food", 2));
 		
 		ArrayList<PromotionOffers> promoList = new ArrayList<PromotionOffers>();
+		promoList.add(new PromotionOffers("food", 2, 1, "5/8/2021", "6/8/2021"));
 		
 		ArrayList<CustomerOrder> orderList = new ArrayList<CustomerOrder>();
 		//for testing
@@ -86,6 +87,7 @@ public class C206_CaseStudy {
 						}
 					} else if (optionCA == 3) { // View Promotion Offers
 						
+						
 					} else if (optionCA == 4) { // Receive Purchase Orders
 						
 					} else if (optionCA == 5) { // Generate sales report
@@ -105,7 +107,7 @@ public class C206_CaseStudy {
 					} else if (optionSS == 2) { // Manage Purchase Orders
 
 					} else if (optionSS == 3) { // Manage Promotion Offers
-
+						
 					} else if (optionSS == 4) {
 						System.out.println("Return back to Role Selection...");
 					} else {
@@ -475,21 +477,18 @@ public class C206_CaseStudy {
 	
 	
 	// ================================= Option 2.3.2 - View Promotion Offers   =================================
-	public static String get(ArrayList<PromotionOffers> promoList) {
-		
+	public static String viewPromotionOffers(ArrayList<PromotionOffers> promoList) {
 		
 		String output = "";
+		output += String.format("%-10s %-5s %-5s %-15s %-15s", "Food Name", "Food Price", 
+				"Promotion Price", "Promotion Start Date", "Promotion End Date");
 		
-		for (int i = 0; i < promoList.size(); i++) {
-			
+		for (PromotionOffers p : promoList) {
+			output += String.format("%-10s %-5d %-5d %-15s %-15s", p.getFoodItemName(), 
+					p.getFoodItemSellingPrice(), p.getFoodItemPromotionPrice(), p.getStartDate()
+					, p.getEndDate());
 		}
 		return output;
-	}
-	
-	public static String getPromoDate() {
-		LocalDate promoDate = LocalDate.now();
-		String promodate = promoDate.toString();
-		return promodate;
 	}
 	
 	// ================================= Option 2.3.3 - Change Promotion Offers   =================================
@@ -520,17 +519,6 @@ public class C206_CaseStudy {
 		}
 	}
 
-	// ================================= Option 2.1 - View orders and update status =================================
-
-	// ================================= Option 2.2.1 - Add purchase orders =================================
-	// ================================= Option 2.2.2 - View purchase orders =================================
-	// ================================= Option 2.2.3 - Change purchase orders =================================
-	// ================================= Option 2.2.4 - Remove purchase orders =================================
-
-	// ================================= Option 2.3.1 - Add Promotion Offers =================================
-	// ================================= Option 2.3.2 - View Promotion Offers =================================
-	// ================================= Option 2.3.3 - Change Promotion Offers =================================
-	// ================================= Option 2.3.4 - Remove Promotion Offers =================================
 	// ================================= Option 3 - Customer =================================
 
 	// Option 3.1 - View Menu food Items (Same as View food Items) (Done at Canteen Admin)
