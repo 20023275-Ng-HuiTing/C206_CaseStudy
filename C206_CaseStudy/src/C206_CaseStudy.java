@@ -113,17 +113,13 @@ public class C206_CaseStudy {
 					}
 				}
 			} else if (option == 3) { // for Customer
-				while (optionCus != 4) {
+				while (optionCus != 3) {
 					C206_CaseStudy.menuCus();
 					optionCus = Helper.readInt("Enter an option > ");
 					if (optionCus == 1) { // View Menu Items
 						C206_CaseStudy.viewFoodItem(null, foodItemList);
 						
-					} else if (optionCus == 2) { // Place Order
-						CustomerOrder co = inputOrder(foodItemList, orderList);
-						C206_CaseStudy.addOrder(orderList, co);
-						
-					} else if (optionCus == 3) { // Manage Orders
+					} else if (optionCus == 2) { // Manage Orders
 						C206_CaseStudy.menuCusO();
 						optionCusO = Helper.readInt("Enter an option > ");
 						
@@ -209,7 +205,7 @@ public class C206_CaseStudy {
 		C206_CaseStudy.setHeader();
 		System.out.println("Customer");
 		Helper.line(80, "-");
-		System.out.println("1. View Menu Items\n2. Place Order\n3. Manage Orders\n4. Quit");
+		System.out.println("1. View Menu Items\n2. Manage Orders\n3. Quit");
 	}
 
 	public static void menuCusO() {
