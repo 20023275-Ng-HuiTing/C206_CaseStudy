@@ -7,9 +7,12 @@ public class C206_CaseStudy {
 		
 		ArrayList<FoodItem> foodItemList = new ArrayList<FoodItem>();
 		//for testing
+
 		foodItemList.add(new FoodItem("Cupcake", 3));
+		foodItemList.add(new FoodItem("Chicken", 4));
 		
 		ArrayList<PromotionOffers> promoList = new ArrayList<PromotionOffers>();
+//		promoList.add(new PromotionOffers("food", 2, 1, "5/8/2021", "6/8/2021"));
 		
 		ArrayList<CustomerOrder> orderList = new ArrayList<CustomerOrder>();
 		//for testing
@@ -24,7 +27,8 @@ public class C206_CaseStudy {
 		int optionCAS = 0;
 		int optionCAFI = 0; 
 		int optionCusO = 0;
-
+		int optionSSPO = 0;
+		
 		while (option != 4) { // users select which role they are
 			C206_CaseStudy.menuRole();
 			option = Helper.readInt("Enter an option > ");
@@ -53,6 +57,10 @@ public class C206_CaseStudy {
 							}
 							else if (optionCAS == 4) {// update stall
 								C206_CaseStudy.UpdateStall(StallList, null );
+								
+							}
+							else if (optionCAS == 5) {// QUIT
+								C206_CaseStudy.menuCA();
 							}
 							else {
 								System.out.println("invalid option");
@@ -85,6 +93,8 @@ public class C206_CaseStudy {
 							}
 						}
 					} else if (optionCA == 3) { // View Promotion Offers
+						C206_CaseStudy.viewPromotionOffers(promoList);
+						break;
 						
 					} else if (optionCA == 4) { // Receive Purchase Orders
 						
@@ -101,13 +111,43 @@ public class C206_CaseStudy {
 					C206_CaseStudy.menuSS();
 					optionSS = Helper.readInt("Enter an option > ");
 					if (optionSS == 1) { // Manage Order Status
-
+						
 					} else if (optionSS == 2) { // Manage Purchase Orders
 
 					} else if (optionSS == 3) { // Manage Promotion Offers
-
+						C206_CaseStudy.menuSSPO();
+						optionSSPO = Helper.readInt("Enter an option > ");
+						
+						while (optionSSPO != 5) {
+							
+							if (optionSSPO == 1) {
+								PromotionOffers po = inputPromotion(foodItemList, promoList);
+								C206_CaseStudy.addPromo(promoList, po);
+								break;
+								
+							} else if (optionSSPO == 2) {
+								C206_CaseStudy.viewPromotionOffers(promoList);
+								break;
+								
+							} else if (optionSSPO == 3) {
+								C206_CaseStudy.changePromo(promoList);
+								
+							} else if (optionSSPO == 4) {
+								C206_CaseStudy.removePromo(promoList);
+								break;
+								
+							} else if (optionSSPO == 5) {
+								System.out.println("Quit...");
+								
+								
+							} else {
+								System.out.println("Invalid Option");
+							}
+						}
+						
 					} else if (optionSS == 4) {
 						System.out.println("Return back to Role Selection...");
+						
 					} else {
 						System.out.println("Invalid option");
 					}
@@ -182,7 +222,7 @@ public class C206_CaseStudy {
 		C206_CaseStudy.setHeader();
 		System.out.println("Manage Canteen Stalls");
 		Helper.line(80, "-");
-		System.out.println("1.Add New Stall\n2.View Stall\n3.Remove Stall\n4.Update Stall");
+		System.out.println("1.Add New Stall\n2.View Stall\n3.Remove Stall\n4.Update Stall\n5.Quit");
 	}
 	
 	public static void menuCAFI() {
@@ -220,6 +260,14 @@ public class C206_CaseStudy {
 		Helper.line(80, "=");
 	}
 
+	public static void menuSSPO() {
+		C206_CaseStudy.setHeader();
+		System.out.println("Manage Promotion Offers");
+		Helper.line(80, "-");
+		System.out.println("1.Add Promotion Offers\n2.View Promotion Offers\n3.Change Promotion Offers"
+				+ "\n4.Remove Promotion Offers\n5. Quit");
+	}
+	
 	public static String showAvailability(boolean isAvailable) {
 		String avail;
 
@@ -447,44 +495,66 @@ public class C206_CaseStudy {
 	
 	
 	// ================================= Option 2.3.1 - Add Promotion Offers   =================================
-	public static void addPromo(ArrayList<FoodItem> foodItemList, ArrayList<PromotionOffers> promoList) {
+	public static PromotionOffers inputPromotion(ArrayList<FoodItem> foodItemList, ArrayList<PromotionOffers> promoList) {
+		int promoprice = 0;
+		String startDate = "";
+		String endDate = "";
+		boolean isValid = false;
+		PromotionOffers po = null;
+		int foodItemPrice = 0;
 		String foodName = Helper.readString("Enter food item's name > ");
 		for (FoodItem i : foodItemList) {
-			if (foodName.equals(i.getFoodItemName())) {
-				int promoprice = Helper.readInt("Enter Promotion price for item > ");
-				
-				for (PromotionOffers p : promoList) {
-					p.setFoodItemPromotionPrice(promoprice);
-					String startDate = Helper.readString("Enter start date for promo > ");
-					String endDate = Helper.readString("Enter end date for promo > ");
-					p.setStartDate(startDate);
-					p.setEndDate(endDate);
-					promoList.add(new PromotionOffers(i.getFoodItemName(), i.getFoodItemSellingPrice()
-							, p.getFoodItemPromotionPrice(), p.getStartDate(), p.getEndDate()));
-				}
-			} else {
-				System.out.println("No such food item name existed!");
+			if (foodName.equalsIgnoreCase(i.getFoodItemName())) {
+				foodItemPrice = i.getFoodItemSellingPrice();
+				promoprice = Helper.readInt("Enter Promotion price for item > ");
+				startDate = Helper.readString("Enter start date for promo > ");
+				endDate = Helper.readString("Enter end date for promo > ");
+				isValid = true;
 			}
 		}
+		for (PromotionOffers p: promoList) {
+			if (foodName.equalsIgnoreCase(p.getFoodItemName())) {
+				p.setFoodItemPromotionPrice(promoprice);
+				p.setStartDate(startDate);
+				p.setEndDate(endDate);
+				isValid = true;
+			}
+		}
+		if (isValid == true) {
+			po = new PromotionOffers(foodName, foodItemPrice, promoprice, startDate, endDate);
+
+		}
+		else if (isValid == false) {
+			po = null;
+		}
+		return po;
 	}
+	public static void addPromo(ArrayList<PromotionOffers> promoList, PromotionOffers po) {
+		if (po != null) {
+			promoList.add(po);
+			System.out.println("Promotion succesfully added!");
+		} else {
+			System.out.println("Promotion unsuccessfully added!");
+		}
+		
+	}
+	
 	
 	
 	// ================================= Option 2.3.2 - View Promotion Offers   =================================
-	public static String get(ArrayList<PromotionOffers> promoList) {
-		
+	
+	public static void viewPromotionOffers(ArrayList<PromotionOffers> promoList) {
 		
 		String output = "";
+		output += String.format("%-10s %-10s %-20s %-19s %-15s\n", "Food Name", "Food Price", 
+				"Promotion Price", "Start Date", "End Date");
 		
-		for (int i = 0; i < promoList.size(); i++) {
-			
-		}
-		return output;
-	}
-	
-	public static String getPromoDate() {
-		LocalDate promoDate = LocalDate.now();
-		String promodate = promoDate.toString();
-		return promodate;
+		for (PromotionOffers p : promoList) {
+			output += String.format("%-10s $%-9d $%-19d %-19s %-15s\n", p.getFoodItemName(), 
+					p.getFoodItemSellingPrice(), p.getFoodItemPromotionPrice(), p.getStartDate()
+					, p.getEndDate());
+		} 
+		System.out.println(output);
 	}
 	
 	// ================================= Option 2.3.3 - Change Promotion Offers   =================================
@@ -495,35 +565,33 @@ public class C206_CaseStudy {
 	
 	// ================================= Option 2.3.4 - Remove Promotion Offers   =================================
 	public static void removePromo(ArrayList<PromotionOffers> promoList) {
+		
 		boolean isValid = false;
-		String itemName = Helper.readString("Enter an existing item name > ");
+		String itemName = Helper.readString("Enter an existing Item name > ");
 		
 		for (PromotionOffers p : promoList) {
-			if (itemName == p.getFoodItemName()) {
-				isValid = true;
+			
+			if (itemName.equalsIgnoreCase(p.getFoodItemName())) {
+				
 				char cfm = Helper.readChar("Confirm removal of Promotion? (Y/N) > ");
 				if (cfm == 'Y' || cfm == 'y') {
+					
 					promoList.remove(p);
+					System.out.println("Item removed successfully!");
+					
 				} else {
-					System.out.println("Removal of Promotion Offer cancelled!");
+					System.out.println("Removal of Promotion Offer cancelled.");
 				}
 			}
+			isValid = true;
 			break;
 		}
 		if (isValid == false) {
-			System.out.println("Item Name does not exist.");
+			System.out.println("Item Name does not Exist!");
 		}
 	}
-
-	// ================================= Option 2.2.1 - Add purchase orders =================================
-	// ================================= Option 2.2.2 - View purchase orders =================================
-	// ================================= Option 2.2.3 - Change purchase orders =================================
-	// ================================= Option 2.2.4 - Remove purchase orders =================================
-
-	// ================================= Option 2.3.1 - Add Promotion Offers =================================
-	// ================================= Option 2.3.2 - View Promotion Offers =================================
-	// ================================= Option 2.3.3 - Change Promotion Offers =================================
-	// ================================= Option 2.3.4 - Remove Promotion Offers =================================
+	
+	
 	// ================================= Option 3 - Customer =================================
 
 	// ================================= Option 3.2(1) - Place Order =================================

@@ -36,12 +36,6 @@ public class PromotionOffers extends FoodItem {
 		this.endDate = endDate;
 	}
 
-	public String printInfo() {
-		String output = String.format("%-5s %-10s %-10d\n", getStartDate(), getEndDate());
-				
-		return output;
-	}
-
 	public int getFoodItemPromotionPrice() {
 		return foodItemPromotionPrice;
 	}
