@@ -72,23 +72,24 @@ public class C206_CaseStudy {
 						optionCAFI = Helper.readInt("Enter an option > ");
 						
 						while (optionCAFI != 5) {
+							optionCAFI = Helper.readInt("Enter an option>");
+
 							if (optionCAFI == 1) { // Add new food item
 								FoodItem food = inputFoodItem(FoodItemList);
 								C206_CaseStudy.addFoodItem(FoodItemList, food);
-								 
+
 							} else if (optionCAFI == 2) { // View food items
-								C206_CaseStudy.viewFoodItem(null, foodItemList);
-								
-							} else if( optionCAFI == 3) { // Change food items
-								C206_CaseStudy.listFoodItem(foodItemList);
-								C206_CaseStudy.changeFoodItem(null, foodItemList);
-								
+								C206_CaseStudy.viewAllFoodItem(FoodItemList);
+
+							} else if( optionCAFI == 3) { // Change food item
+								C206_CaseStudy.UpdateFood(FoodItemList);
+
 							} else if (optionCAFI == 4) {// Delete food item
-								C206_CaseStudy.removeFoodItem(null, foodItemList);
-								
+								C206_CaseStudy.removeFoodItem(FoodItemList);
+
 							} else if (optionCAFI == 5) {
 								System.out.println("Quit...");
-								
+
 							} else {
 								System.out.println("invalid option");
 							}
@@ -425,58 +426,95 @@ public class C206_CaseStudy {
 	}
 
 	// ================================= Option 1.2.1 - Add food Items   =================================
+	// Charlene			
+	public static FoodItem inputFoodItem(ArrayList<FoodItem> FoodItemList) {
+		String foodName = Helper.readString("Enter Food Name > ");
+		int foodPrice = Helper.readInt("Enter Food Price > ");
+
+		FoodItem food = new FoodItem(foodName, foodPrice);
+		return food;
+	}
+
+	public static void addFoodItem(ArrayList<FoodItem> FoodItemList, FoodItem food) {
+		FoodItemList.add(food);
+		System.out.println("new food added");
+	}
+
+	// ================================= Option 1.2.2 - View food Items   =================================
+	//charlene
+	public static String retrieveAllFoodItem(ArrayList<FoodItem> FoodItemList) {
+		String output = "";
+
+		for (int i = 0; i < FoodItemList.size(); i++) {
+
+			output += String.format("%-10s %40d\n", FoodItemList.get(i).getFoodItemName(), FoodItemList.get(i).getFoodItemSellingPrice());
+		}
+		return output;
+	}
+
+	public static void viewAllFoodItem(ArrayList<FoodItem> FoodItemList) {
+		String output = "";
+		if (FoodItemList.isEmpty()) {
+			output = "You have no existing food item.";
+		}
+		else {
+			output = String.format("%-10s %40s\n", "FOOD ITEM", "SELLING PRICE");
+			output += retrieveAllFoodItem(FoodItemList);
+			System.out.println(output);
+		}
+	}
+
+	// ================================= Option 1.2.3 - Change food Items   =================================
+	// Charlene	
+	public static boolean UpdateFood(ArrayList<FoodItem> FoodItemList) {
+		String foodName = Helper.readString("Enter Food Name > ");
+
+		boolean isUpdated = false;
+
+		for (int i = 0; i < FoodItemList.size(); i++) {
+			if (foodName.equals(FoodItemList.get(i).getFoodItemName())) {
+				int price = Helper.readInt("Enter new price > ");
+				
+				FoodItemList.get(i).setFoodItemSellingPrice(price);
+				System.out.println("Price for " + foodName + " is updated.");
+				
+				isUpdated = true;
+			} 
+		}
+		
+		if (isUpdated = false) {
+			System.out.println("Update fail.");
+		}
+
+		return isUpdated;
+
+	}
+
+	// ================================= Option 1.2.4 - Remove food Items   =================================
 	// Charlene
-	  public static ArrayList<FoodItem> addFoodItem(String foodItemName, int foodItemSellingPrice, ArrayList<FoodItem> foodItemList){
-	    foodItemList.add(new FoodItem(foodItemName, foodItemSellingPrice));
-	    return foodItemList;
-	  }
-	  
-	  // ================================= Option 1.2.2 - View food Items   =================================
-	  // Charlene
-	  public static void viewFoodItem(String foodItemName, ArrayList<FoodItem> foodItemList){
-	    boolean found = false;
-	    for (FoodItem food : foodItemList) {
-	          if (food.getFoodItemName().equals(foodItemName)) {
-	              found = true;
-	              System.out.println("Food Name: " + food.getFoodItemName() + "\nFood Price: " + food.getFoodItemSellingPrice());
-	          }
-	      }
-	    if (found == false) {
-	      System.out.println("Food not found");
-	    }
-	  }
-	  
-	  // ================================= Option 1.2.3 - Change food Items   =================================
-	  // Charlene
-	  public static void listFoodItem(ArrayList<FoodItem> foodItemList){
-	    int count = 1;
-	    C206_CaseStudy.setHeader();
-	    System.out.println("All Food items");
-	    Helper.line(80, "-");
-	    for (FoodItem food : foodItemList) {
-	      System.out.println(count + ". Food Name: " + food.getFoodItemName() + " - $" + food.getFoodItemSellingPrice());
-	      count++;
-	    }
-	    Helper.line(80, "-");
-	  }
-	  
-	  public static void changeFoodItem(String foodItemName, ArrayList<FoodItem> foodItemList){
-	    C206_CaseStudy.listFoodItem(foodItemList);
-	    int optionFood = Helper.readInt("Enter an option > ");
-	    String newName = Helper.readString("Enter new name for food: ");
-	    int newPrice = Helper.readInt("Enter new selling price for food: ");
-	    foodItemList.get(optionFood - 1).setFoodItemName(newName);
-	    foodItemList.get(optionFood - 1).setFoodItemSellingPrice(newPrice);
-	  }
-	  
-	  // ================================= Option 1.2.4 - Remove food Items   =================================
-	  // Charlene
-	  public static void removeFoodItem(String foodItemName, ArrayList<FoodItem> foodItemList){
-	    C206_CaseStudy.listFoodItem(foodItemList);
-	    int optionFood = Helper.readInt("Enter an option > ");
-	    foodItemList.remove(optionFood - 1);
-	    System.out.println("Remove successfully.");
-	  }
+	public static void removeFoodItem(ArrayList<FoodItem> FoodItemList) {
+		boolean isDeleted = false;
+		String foodName = Helper.readString("Enter Food Name > ");
+
+		for (int i = 0; i < FoodItemList.size(); i ++) {
+			if (foodName.equals(FoodItemList.get(i).getFoodItemName())) {
+				char confirmation = Helper.readChar("Are you sure? (Y/N) > ");
+				if (confirmation == 'y' || confirmation == 'Y') {
+					FoodItemList.remove(i);
+					isDeleted = true;
+					System.out.println("Food is deleted succesfully");
+				} else if (confirmation == 'n' || confirmation == 'N') {
+					System.out.println("Transaction cancelled.");
+				} else {
+					System.out.println("Invalid input.");
+				}
+			}
+		}
+		
+		if (isDeleted == false) {
+			System.out.println("Food is not deleted succesfully.");
+		}
+	}
 
 	// Option 1.3 - View Promotion Offers (Done at Stall Staff)
 
