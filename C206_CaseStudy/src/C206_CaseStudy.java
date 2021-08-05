@@ -441,8 +441,6 @@ public class C206_CaseStudy {
 
 	// ================================= Option 2 - Stall Staff =================================
 
-	// ================================= Option 2.1 - View orders and update status =================================
-
 	// ================================= Option 2.2.1 - Add purchase orders =================================
 	// ================================= Option 2.2.2 - View purchase orders =================================
 	// ================================= Option 2.2.3 - Change purchase orders =================================
@@ -454,8 +452,6 @@ public class C206_CaseStudy {
 	// ================================= Option 2.3.4 - Remove Promotion Offers =================================
 
 	// ================================= Option 3 - Customer =================================
-
-	// Option 3.1 - View Menu food Items (Same as View food Items) (Done at Canteen Admin)
 
 	// ================================= Option 3.2(1) - Place Order =================================
 	//Hui Ting
