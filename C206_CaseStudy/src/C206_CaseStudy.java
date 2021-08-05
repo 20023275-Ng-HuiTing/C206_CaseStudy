@@ -9,6 +9,8 @@ public class C206_CaseStudy {
 		//for testing
 		foodItemList.add(new FoodItem("food", 2));
 		
+		ArrayList<PromotionOffers> promoList = new ArrayList<PromotionOffers>();
+		
 		ArrayList<CustomerOrder> orderList = new ArrayList<CustomerOrder>();
 		//for testing
 		orderList.add(new CustomerOrder(1, "food", 1, 1));
@@ -271,7 +273,6 @@ public class C206_CaseStudy {
 	}
 
 	private static Object showAvailability(String stallName) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -440,6 +441,84 @@ public class C206_CaseStudy {
 	// ================================= Option 1.5 - Generate sales report =================================
 
 	// ================================= Option 2 - Stall Staff =================================
+	// ================================= Option 2.1 - View orders and update status  =================================
+	
+	// ================================= Option 2.2.1 - Add purchase orders   =================================
+	// ================================= Option 2.2.2 - View purchase orders   =================================
+	// ================================= Option 2.2.3 - Change purchase orders   =================================
+	// ================================= Option 2.2.4 - Remove purchase orders   =================================
+	
+	
+	
+	
+	// ================================= Option 2.3.1 - Add Promotion Offers   =================================
+	public static void addPromo(ArrayList<FoodItem> foodItemList, ArrayList<PromotionOffers> promoList) {
+		String foodName = Helper.readString("Enter food item's name > ");
+		for (FoodItem i : foodItemList) {
+			if (foodName.equals(i.getFoodItemName())) {
+				int promoprice = Helper.readInt("Enter Promotion price for item > ");
+				
+				for (PromotionOffers p : promoList) {
+					p.setFoodItemPromotionPrice(promoprice);
+					String startDate = Helper.readString("Enter start date for promo > ");
+					String endDate = Helper.readString("Enter end date for promo > ");
+					p.setStartDate(startDate);
+					p.setEndDate(endDate);
+					promoList.add(new PromotionOffers(i.getFoodItemName(), i.getFoodItemSellingPrice()
+							, p.getFoodItemPromotionPrice(), p.getStartDate(), p.getEndDate()));
+				}
+			} else {
+				System.out.println("No such food item name existed!");
+			}
+		}
+	}
+	
+	
+	// ================================= Option 2.3.2 - View Promotion Offers   =================================
+	public static String get(ArrayList<PromotionOffers> promoList) {
+		
+		
+		String output = "";
+		
+		for (int i = 0; i < promoList.size(); i++) {
+			
+		}
+		return output;
+	}
+	
+	public static String getPromoDate() {
+		LocalDate promoDate = LocalDate.now();
+		String promodate = promoDate.toString();
+		return promodate;
+	}
+	
+	// ================================= Option 2.3.3 - Change Promotion Offers   =================================
+	public static void changePromo(ArrayList<PromotionOffers> promoList) {
+		
+	}
+	
+	
+	// ================================= Option 2.3.4 - Remove Promotion Offers   =================================
+	public static void removePromo(ArrayList<PromotionOffers> promoList) {
+		boolean isValid = false;
+		String itemName = Helper.readString("Enter an existing item name > ");
+		
+		for (PromotionOffers p : promoList) {
+			if (itemName == p.getFoodItemName()) {
+				isValid = true;
+				char cfm = Helper.readChar("Confirm removal of Promotion? (Y/N) > ");
+				if (cfm == 'Y' || cfm == 'y') {
+					promoList.remove(p);
+				} else {
+					System.out.println("Removal of Promotion Offer cancelled!");
+				}
+			}
+			break;
+		}
+		if (isValid == false) {
+			System.out.println("Item Name does not exist.");
+		}
+	}
 
 	// ================================= Option 2.2.1 - Add purchase orders =================================
 	// ================================= Option 2.2.2 - View purchase orders =================================
@@ -450,7 +529,6 @@ public class C206_CaseStudy {
 	// ================================= Option 2.3.2 - View Promotion Offers =================================
 	// ================================= Option 2.3.3 - Change Promotion Offers =================================
 	// ================================= Option 2.3.4 - Remove Promotion Offers =================================
-
 	// ================================= Option 3 - Customer =================================
 
 	// ================================= Option 3.2(1) - Place Order =================================
