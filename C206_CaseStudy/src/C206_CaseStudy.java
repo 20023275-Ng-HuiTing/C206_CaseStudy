@@ -12,8 +12,9 @@ public class C206_CaseStudy {
 		ArrayList<PromotionOffers> promoList = new ArrayList<PromotionOffers>();
 		
 		ArrayList<CustomerOrder> orderList = new ArrayList<CustomerOrder>();
-		//for testing
-		orderList.add(new CustomerOrder(1, "food", 1, 1));
+		// for testing ( please delete when done )
+		// orderList.add(new CustomerOrder(1, "food", 1, 1));
+		// orderList.add(new CustomerOrder(1, "food", 2, 5));
 
 		ArrayList<Stall> StallList = new ArrayList<Stall>();
 
