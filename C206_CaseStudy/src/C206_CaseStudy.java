@@ -57,6 +57,10 @@ public class C206_CaseStudy {
 							}
 							else if (optionCAS == 4) {// update stall
 								C206_CaseStudy.UpdateStall(StallList, null );
+								
+							}
+							else if (optionCAS == 5) {// QUIT
+								C206_CaseStudy.menuCA();
 							}
 							else {
 								System.out.println("invalid option");
@@ -219,7 +223,7 @@ public class C206_CaseStudy {
 		C206_CaseStudy.setHeader();
 		System.out.println("Manage Canteen Stalls");
 		Helper.line(80, "-");
-		System.out.println("1.Add New Stall\n2.View Stall\n3.Remove Stall\n4.Update Stall");
+		System.out.println("1.Add New Stall\n2.View Stall\n3.Remove Stall\n4.Update Stall\n5.Quit");
 	}
 	
 	public static void menuCAFI() {
