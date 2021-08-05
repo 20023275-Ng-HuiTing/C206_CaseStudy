@@ -73,7 +73,8 @@ public class C206_CaseStudy {
 						
 						while (optionCAFI != 5) {
 							if (optionCAFI == 1) { // Add new food item
-								C206_CaseStudy.addFoodItem(null, optionCAFI, foodItemList);
+								FoodItem food = inputFoodItem(FoodItemList);
+								C206_CaseStudy.addFoodItem(FoodItemList, food);
 								 
 							} else if (optionCAFI == 2) { // View food items
 								C206_CaseStudy.viewFoodItem(null, foodItemList);
