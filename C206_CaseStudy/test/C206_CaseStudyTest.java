@@ -17,8 +17,8 @@ public class C206_CaseStudyTest {
 	@Before
 	public void setUp() throws Exception {
 		// prepare test data - Hui Ting
-		co1 = new CustomerOrder(1, "food", 1, 2);
-		co2 = new CustomerOrder(2, "fooditem", 3, 5);
+		co1 = new CustomerOrder(1, "Cupcake", 1, 2);
+		co2 = new CustomerOrder(2, "Cake", 3, 5);
 		
 		orderList = new ArrayList<CustomerOrder>();
 	}
@@ -56,17 +56,18 @@ public class C206_CaseStudyTest {
 		//Test that orderList is not null before viewing orders
 		assertNotNull("Test if there is a valid CustomerOrder arraylist to view", orderList);
 		
-		//Given an empty list, after adding 2 items, test if the size of the list is 2
-		C206_CaseStudy.addOrder(orderList, co1);
-		C206_CaseStudy.addOrder(orderList, co2);
-		assertEquals("Test if that CustomerOrder arraylist size is 2: ", 2, orderList.size());
+		//test if the list of orders retrieved from the C206_CaseStudy is empty
+		String allOrders = C206_CaseStudy.getOrder(orderList);
+		String testOutput = "Order Total Amount: $0\n";
+		assertEquals("Check that getOrder", testOutput, allOrders);
 		
 		//test if the expected output string same as the list of orders retrieved from the C206_CaseStudy
-		String allOrders = C206_CaseStudy.getOrder(orderList);
-		String testOutput = "";
+		C206_CaseStudy.addOrder(orderList, co1);
+		C206_CaseStudy.addOrder(orderList, co2);
+		
 		allOrders = C206_CaseStudy.getOrder(orderList);
-		testOutput = String.format("%-5s %-10s $%-10d %-10d\n", 1, "food", 1, 2);
-		testOutput += String.format("%-5s %-10s $%-10d %-10d\n", 2, "fooditem", 3, 5);
+		testOutput = String.format("%-5s %-10s $%-10d %-10d\n", 1, "Cupcake", 1, 2);
+		testOutput += String.format("%-5s %-10s $%-10d %-10d\n", 2, "Cake", 3, 5);
 		testOutput += "Order Total Amount: $17\n";
 		assertEquals("Check that getOrder", testOutput, allOrders);
 	}

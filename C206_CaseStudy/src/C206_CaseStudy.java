@@ -7,14 +7,13 @@ public class C206_CaseStudy {
 		
 		ArrayList<FoodItem> foodItemList = new ArrayList<FoodItem>();
 		//for testing
-		foodItemList.add(new FoodItem("food", 2));
+		foodItemList.add(new FoodItem("Cupcake", 3));
 		
 		ArrayList<PromotionOffers> promoList = new ArrayList<PromotionOffers>();
 		
 		ArrayList<CustomerOrder> orderList = new ArrayList<CustomerOrder>();
-		// for testing ( please delete when done )
-		// orderList.add(new CustomerOrder(1, "food", 1, 1));
-		// orderList.add(new CustomerOrder(1, "food", 2, 5));
+		//for testing
+		orderList.add(new CustomerOrder(0, "-", 0, 0));
 
 		ArrayList<Stall> StallList = new ArrayList<Stall>();
 
@@ -126,7 +125,7 @@ public class C206_CaseStudy {
 						
 						while (optionCusO != 5) {
 							if (optionCusO == 1) { // Add order
-								CustomerOrder co = inputOrder(foodItemList, orderList);
+								CustomerOrder co = inputOrder(orderList, foodItemList);
 								C206_CaseStudy.addOrder(orderList, co);
 								
 							} else if (optionCusO == 2) { // View order
@@ -147,8 +146,7 @@ public class C206_CaseStudy {
 							C206_CaseStudy.menuCusO();
 							optionCusO = Helper.readInt("Enter an option > ");
 						}
-
-					} else if (optionCus == 4) {
+					} else if (optionCus == 3) {
 						System.out.println("Return back to Role Selection...");
 					} else {
 						System.out.println("Invalid option");
@@ -530,12 +528,12 @@ public class C206_CaseStudy {
 
 	// ================================= Option 3.2(1) - Place Order =================================
 	//Hui Ting
-	public static CustomerOrder inputOrder(ArrayList<FoodItem> foodItemList, ArrayList<CustomerOrder> orderList) {
+	public static CustomerOrder inputOrder(ArrayList<CustomerOrder> orderList, ArrayList<FoodItem> foodItemList) {
 		int foodItemQty = 0;
 		int sellingprice = 0;
 		String foodName = "";
 		CustomerOrder co = null;
-				
+		
 		int orderid = Helper.readInt("Enter order ID > ");
 		
 		for (CustomerOrder o : orderList) {
@@ -553,15 +551,18 @@ public class C206_CaseStudy {
 						}
 					} else {
 						System.out.println("Invalid food item name\nPlease order again!");
+						break;
 					}
 				}
 			} else {
 				System.out.println("Invalid Order ID\nPlease order again!");
+				break;
 			}
 		}
+
 		return co;
 	}
-		
+	
 	// ================================= Option 3.2(2) - Calculate total =================================
 	//Hui Ting
 	public static int getOrderTotalAmount(ArrayList<CustomerOrder> orderList) {
@@ -626,6 +627,7 @@ public class C206_CaseStudy {
 				char cfm = Helper.readChar("Are you sure? (Y/N) > ");
 				if (cfm == 'Y' || cfm == 'y') {
 					orderList.remove(o);
+					System.out.println("You have successfully deleted your order");
 				} else {
 					System.out.println("Removal of Order cancelled...");
 				
