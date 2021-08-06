@@ -73,6 +73,20 @@ public class C206_CaseStudyTest {
 	}
 	
 	@Test
+	public void testupdateOrder() {
+		//Test that orderList is not null before viewing orders
+		assertNotNull("Test if there is a valid CustomerOrder arraylist to update", orderList);
+		
+		//Given an empty list, after adding 1 object, size of list will be 1
+		C206_CaseStudy.addOrder(orderList, co1);
+		assertEquals("Test if the CustomerOrder arraylist size is 1: ", 1, orderList.size());
+		
+		//Test that after updating, order quantity increases by 1
+		C206_CaseStudy.updateOrder(orderList, co1.getOrderID());
+		assertEquals("Test if the order quantity increased by 1: ", 3, co1.getOrderQty());
+	}
+	
+	@Test
 	public void testremoveOrder() {
 		C206_CaseStudy.addOrder(orderList, co1);
 		C206_CaseStudy.addOrder(orderList, co2);
