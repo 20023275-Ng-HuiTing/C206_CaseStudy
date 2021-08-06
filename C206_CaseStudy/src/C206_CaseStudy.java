@@ -713,12 +713,11 @@ public class C206_CaseStudy {
 	public static void updateOrder(ArrayList<CustomerOrder> orderList, int input) {
 		boolean isValid = false;
 		
-		
 		for (CustomerOrder o : orderList) {
 			if (input == o.getOrderID()) {
 				isValid = true;
 				int newOrderQty = o.getOrderQty() + 1;
-				if (newOrderQty <= 5 ) {
+				if (newOrderQty < 5 ) {
 					o.setOrderQty(newOrderQty);
 					System.out.println("You have updated your order.\nPlease view orders for more information");
 					break;
