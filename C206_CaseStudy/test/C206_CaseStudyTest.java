@@ -74,7 +74,7 @@ public class C206_CaseStudyTest {
 	
 	@Test
 	public void testupdateOrder() {
-		//Test that orderList is not null before viewing orders
+		//Test that orderList is not null before updating orders
 		assertNotNull("Test if there is a valid CustomerOrder arraylist to update", orderList);
 		
 		//Given an empty list, after adding 1 object, size of list will be 1

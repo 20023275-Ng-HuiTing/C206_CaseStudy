@@ -727,7 +727,7 @@ public class C206_CaseStudy {
 			}
 		}
 		if (isValid == false) {
-			System.out.println("Order ID does not exist.");
+			System.out.println("Invalid Order ID.");
 		}
 	}
 	
