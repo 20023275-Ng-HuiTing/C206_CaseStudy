@@ -175,7 +175,7 @@ public class C206_CaseStudy {
 								C206_CaseStudy.viewAllOrders(orderList);
 								
 							} else if( optionCusO == 3) { // Change order
-								C206_CaseStudy.changeOrder(orderList);
+								C206_CaseStudy.updateOrder(orderList);
 								
 							} else if (optionCusO == 4) {// Delete order
 								C206_CaseStudy.removeOrder(orderList);
@@ -643,6 +643,7 @@ public class C206_CaseStudy {
 						foodItemQty = Helper.readInt("Enter food item's quantity > ");
 						if (foodItemQty <= 5) {
 							co = new CustomerOrder(orderid, foodName, sellingprice, foodItemQty);
+							break;
 						} else {
 							System.out.println("Order quantity exceeded. (Max: 5)");
 							break;
@@ -656,8 +657,7 @@ public class C206_CaseStudy {
 				System.out.println("Invalid Order ID\nPlease order again!");
 				break;
 			}
-		}
-
+		} 
 		return co;
 	}
 	
@@ -709,8 +709,26 @@ public class C206_CaseStudy {
 	
 	// ================================= Option 3.3.3 - Change Orders =================================
 	// Hui Ting
-	public static void changeOrder(ArrayList<CustomerOrder> orderList) {
+	public static void updateOrder(ArrayList<CustomerOrder> orderList) {
+		boolean isValid = false;
+		int input = Helper.readInt("Enter an existing Order ID > ");
 		
+		for (CustomerOrder o : orderList) {
+			if (input == o.getOrderID()) {
+				isValid = true;
+				int newOrderQty = o.getOrderQty() + 1;
+				if (newOrderQty <= 5 ) {
+					o.setOrderQty(newOrderQty);
+					System.out.println("You have updated your order.\nPlease view orders for more information");
+					break;
+				} else {
+					System.out.println("Order quantity exceeded. (Max: 5)");
+				}
+			}
+		}
+		if (isValid == false) {
+			System.out.println("Order ID does not exist.");
+		}
 	}
 	
 	// ================================= Option 3.3.4 - Remove Orders =================================
@@ -726,12 +744,13 @@ public class C206_CaseStudy {
 				if (cfm == 'Y' || cfm == 'y') {
 					orderList.remove(o);
 					System.out.println("You have successfully deleted your order");
+					break;
 				} else {
 					System.out.println("Removal of Order cancelled...");
+					break;
 				
 				}
 			}
-			break;
 		}
 		if (isValid == false) {
 			System.out.println("Order ID does not exist.");
