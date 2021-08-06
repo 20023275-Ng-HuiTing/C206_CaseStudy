@@ -175,7 +175,8 @@ public class C206_CaseStudy {
 								C206_CaseStudy.viewAllOrders(orderList);
 								
 							} else if( optionCusO == 3) { // Change order
-								C206_CaseStudy.updateOrder(orderList);
+								int input = Helper.readInt("Enter an existing Order ID > ");
+								C206_CaseStudy.updateOrder(orderList, input);
 								
 							} else if (optionCusO == 4) {// Delete order
 								C206_CaseStudy.removeOrder(orderList);
@@ -707,11 +708,11 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 	
-	// ================================= Option 3.3.3 - Change Orders =================================
+	// ================================= Option 3.3.3 - Update Orders =================================
 	// Hui Ting
-	public static void updateOrder(ArrayList<CustomerOrder> orderList) {
+	public static void updateOrder(ArrayList<CustomerOrder> orderList, int input) {
 		boolean isValid = false;
-		int input = Helper.readInt("Enter an existing Order ID > ");
+		
 		
 		for (CustomerOrder o : orderList) {
 			if (input == o.getOrderID()) {
