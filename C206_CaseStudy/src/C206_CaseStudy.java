@@ -255,7 +255,7 @@ public class C206_CaseStudy {
 		C206_CaseStudy.setHeader();
 		System.out.println("Manage Orders");
 		Helper.line(80, "-");
-		System.out.println("1.Add Orders\n2.View Orders\n3.Change Orders\n4.Remove Orders\n5. Quit");
+		System.out.println("1. Add Orders\n2. View Orders\n3. Update Orders\n4. Remove Orders\n5. Quit");
 	}
 	
 	public static void setHeader() {
