@@ -36,56 +36,55 @@ public class C206_CaseStudy {
 			if (option == 1) { // for canteen admin
 				while (optionCA != 6) {
 					C206_CaseStudy.menuCA();
-					
 					optionCA = Helper.readInt("Enter an option > ");
+					
 					if (optionCA == 1) { // Manage stalls
 						C206_CaseStudy.menuCAS();
-						while (optionCA !=6){
-						 optionCAS = Helper.readInt("Enter an option > ");
+						optionCAS = Helper.readInt("Enter an option > ");
+						
+						while (optionCAS != 5){
 						
 							if (optionCAS == 1) {// Add new Stall
 								 Stall ns = inputStall();
 								 C206_CaseStudy.addStall(StallList, ns);
 								 
-							}else if (optionCAS == 2) {// view new stall
+							} else if (optionCAS == 2) {// view new stall
 								C206_CaseStudy.retrieveAllStall(StallList);
 								C206_CaseStudy.viewAllStall(StallList);
 								C206_CaseStudy.retrieveAllStall1(StallList);
 								
-							}else if( optionCAS == 3) {// delete stall
+							} else if( optionCAS == 3) {// delete stall
 								C206_CaseStudy.deleteStall(StallList);
-							}
-							else if (optionCAS == 4) {// update stall
+								
+							} else if (optionCAS == 4) {// update stall
 								C206_CaseStudy.UpdateStall(StallList, null );
 								
-							}
-							else if (optionCAS == 5) {// QUIT
-								C206_CaseStudy.menuCA();
-							}
-							else {
+							} else if (optionCAS == 5) {// QUIT
+								System.out.println("Quit.");
+							} else {
 								System.out.println("invalid option");
 							}
+							C206_CaseStudy.menuCAS();
+							optionCAS = Helper.readInt("Enter an option > ");
 						}
-					
 					} else if (optionCA == 2) { // Manage food items
 						C206_CaseStudy.menuCAFI();
 						optionCAFI = Helper.readInt("Enter an option > ");
 						
 						while (optionCAFI != 5) {
-							optionCAFI = Helper.readInt("Enter an option>");
 
 							if (optionCAFI == 1) { // Add new food item
-								FoodItem food = inputFoodItem(FoodItemList);
-								C206_CaseStudy.addFoodItem(FoodItemList, food);
+								FoodItem food = inputFoodItem(foodItemList);
+								C206_CaseStudy.addFoodItem(foodItemList, food);
 
 							} else if (optionCAFI == 2) { // View food items
-								C206_CaseStudy.viewAllFoodItem(FoodItemList);
+								C206_CaseStudy.viewAllFoodItem(foodItemList);
 
 							} else if( optionCAFI == 3) { // Change food item
-								C206_CaseStudy.UpdateFood(FoodItemList);
+								C206_CaseStudy.UpdateFood(foodItemList);
 
 							} else if (optionCAFI == 4) {// Delete food item
-								C206_CaseStudy.removeFoodItem(FoodItemList);
+								C206_CaseStudy.removeFoodItem(foodItemList);
 
 							} else if (optionCAFI == 5) {
 								System.out.println("Quit...");
@@ -93,6 +92,8 @@ public class C206_CaseStudy {
 							} else {
 								System.out.println("invalid option");
 							}
+							C206_CaseStudy.menuCAFI();
+							optionCAFI = Helper.readInt("Enter an option > ");
 						}
 					} else if (optionCA == 3) { // View Promotion Offers
 						C206_CaseStudy.viewPromotionOffers(promoList);
@@ -159,7 +160,7 @@ public class C206_CaseStudy {
 					C206_CaseStudy.menuCus();
 					optionCus = Helper.readInt("Enter an option > ");
 					if (optionCus == 1) { // View Menu Items
-						C206_CaseStudy.viewFoodItem(null, foodItemList);
+						C206_CaseStudy.viewAllFoodItem(foodItemList);
 						
 					} else if (optionCus == 2) { // Manage Orders
 						C206_CaseStudy.menuCusO();
@@ -394,10 +395,6 @@ public class C206_CaseStudy {
 				}
 			}
 
-			/*
-			 * 
-			 */
-
 			if (findStallItemList.size() == 0) {
 				System.out.println("Nothing is found!");
 			} else {
@@ -418,7 +415,6 @@ public class C206_CaseStudy {
 						if (StallList.get(x).getStallName().equals(name) && StallList.get(x).getDate().equals(category))
 							StallList.remove(x);
 					}
-
 					System.out.println(name + " is removed!");
 				}
 			}
@@ -446,7 +442,6 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < FoodItemList.size(); i++) {
-
 			output += String.format("%-10s %40d\n", FoodItemList.get(i).getFoodItemName(), FoodItemList.get(i).getFoodItemSellingPrice());
 		}
 		return output;
@@ -481,13 +476,10 @@ public class C206_CaseStudy {
 				isUpdated = true;
 			} 
 		}
-		
 		if (isUpdated = false) {
 			System.out.println("Update fail.");
 		}
-
 		return isUpdated;
-
 	}
 
 	// ================================= Option 1.2.4 - Remove food Items   =================================
@@ -510,7 +502,6 @@ public class C206_CaseStudy {
 				}
 			}
 		}
-		
 		if (isDeleted == false) {
 			System.out.println("Food is not deleted succesfully.");
 		}
