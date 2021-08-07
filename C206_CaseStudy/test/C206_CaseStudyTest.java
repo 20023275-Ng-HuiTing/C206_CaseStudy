@@ -203,6 +203,38 @@ public void testviewAllFoodItem() {
   testOutput += String.format("%-5s %-10s\n", 2, "FOOD ITEM", 3, 5);
   assertEquals("Check that getFoodItem", testOutput, allFoodItem);
 }
+@Test
+public void testRemoveFoodItem() {
+	C206_CaseStudy.addFoodItem(FoodItemList, FI1);
+	C206_CaseStudy.addFoodItem(FoodItemList, FI2);
+	
+	//Test that FoodItemList is not null before deleting Food Item
+	assertNotNull("Test if there is a valid Stall arraylist to delete from", FoodItemList);
+	
+	//Test that FoodItemList has 1 Food Item after deleting one Food Item
+	C206_CaseStudy.removeFoodItem(FoodItemList);
+	assertEquals("Test if Food Item arraylist has 1 food: " , 1, FoodItemList.size());
+	
+	//Test that FoodItemList is empty after deleting second Food Item
+	C206_CaseStudy.removeFoodItem(FoodItemList);
+	assertEquals("Test if Stall arraylist is empty: " , 0, FoodItemList.size());
+}
+@Test
+public void testupdateFoodItem() {
+	//Test that FoodItemList is not null before updating Food Item
+	assertNotNull("Test if there is a valid Food Item arraylist to update", FoodItemList);
+	
+	//Given an empty list, after adding 1 object, size of list will be 1
+	C206_CaseStudy.addFoodItem(FoodItemList, FI1);
+	assertEquals("Test if the Stall arraylist size is 1: ", 1, FoodItemList.size());
+	
+	//Test that after updating, Stall quantity increases by 1
+	C206_CaseStudy.addFoodItem(FoodItemList, FI1.getFoodItemName());
+	assertEquals("Test if the Stall increased by 1: ", 3, FI1.getFoodItemName());
+}
+
+
+
 	
 	@Test
 	public void TestaddPurchaseOrder() {
