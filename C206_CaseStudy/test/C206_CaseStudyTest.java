@@ -114,7 +114,7 @@ public void testAddFoodItem() {
   assertNull("Test if there is valid Food Item arraylist to add to ", FoodItemList);
   
   //Given an empty list, after adding 1 stall, the size of the list is 1
-  FoodItem.addFoodItem(FoodItemList,FI1);
+  C206_CaseStudy.addFoodItem(FoodItemList,FI1);
   assertEquals("Test if the Food Item arraylist size is 1?",1,FoodItemList.size());
   
   
@@ -122,7 +122,7 @@ public void testAddFoodItem() {
   assertSame("Test that Food Item is added same as 1st item of the list?", FI1, FoodItemList.get(0));
   
   //Add another Food Item. test that the size of the list is 2?
-  FoodItem.addFoodItem(FoodItemList, FI2);
+  C206_CaseStudy.addFoodItem(FoodItemList, FI2);
   assertEquals("Test that Food Item arraylist size is 2?", 2, FoodItemList.size());
   
 }
