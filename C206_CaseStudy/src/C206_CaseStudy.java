@@ -133,17 +133,15 @@ public class C206_CaseStudy {
 
 						} else if (optionPO == 2) {
 							C206_CaseStudy.viewAllPurchaseOrder(OrderList);
-						}else if (optionPO == 3) {
+						} else if (optionPO == 3) {
+							C206_CaseStudy.PurchaseOrder(OrderList);
+						}
+						else if (optionPO == 4) {
 							C206_CaseStudy.deletePurchaseOrder(OrderList);
 						}
-							else if (optionPO == 4){
+							else if (optionPO == 5){
 							System.out.println("Have a nice day");
 						}
-					}
-
-				}
-
-						
 
 					} else if (optionSS == 3) { // Manage Promotion Offers
 						C206_CaseStudy.menuSSPO();
@@ -616,6 +614,7 @@ public class C206_CaseStudy {
 				
 				PurchaseList.get(i).setPONum(POnum1);
 				System.out.println("Purchase order number has been updated");
+				break;
 				
 			} else {
 				System.out.println("The purchase order number is invalid");
@@ -634,17 +633,14 @@ public class C206_CaseStudy {
 	    System.out.print("Delete Purchase Order\n");
 	    Helper.line(50, "-");
 	    
-	    boolean isdelete = false;
-	 
-			int PO = Helper.readInt("Enter purchase order you wish to delete > ");
+
 			boolean isDeleted = false;
 			  String Purchaseo = Helper.readString("Enter purchase order that you wish to delete > ");
 			    for (int i = 0; i < PurchaseList.size(); i++) {
 			    	if (PurchaseList.get(i).getPONum().equalsIgnoreCase(Purchaseo)) {
-			    		PurchaseList.remove(i);
-				}else {
-			isDeleted = false;
-				}
+			    		PurchaseList.remove(i); 
+			    		isDeleted = true;
+		}
 						
 			}if (isDeleted == true) {
 				System.out.println("Purchase has been deleted successfully");
