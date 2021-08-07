@@ -888,10 +888,7 @@ public static void addFoodItem(ArrayList<FoodItem> foodItemList, String foodItem
 		
 	}
 
-	public static void deleteFoodItem(ArrayList<FoodItem> foodItemList) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }
 
 
