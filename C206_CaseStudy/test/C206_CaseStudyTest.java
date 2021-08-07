@@ -342,6 +342,19 @@ public void TestViewAllPurchaseOrder() {
 		C206_CaseStudy.deleteStall(StallList);
 		assertEquals("Test if Stall arraylist is empty: " , 0, StallList.size());
 	}
+	@Test
+	public void testupdateStall() {
+		//Test that StallList is not null before updating Stalls
+		assertNotNull("Test if there is a valid Stall arraylist to update", StallList);
+		
+		//Given an empty list, after adding 1 object, size of list will be 1
+		C206_CaseStudy.addStall(StallList, s1);
+		assertEquals("Test if the Stall arraylist size is 1: ", 1, StallList.size());
+		
+		//Test that after updating, Stall quantity increases by 1
+		C206_CaseStudy.UpdateStall(StallList, s1.getStallName());
+		assertEquals("Test if the Stall increased by 1: ", 3, s1.getStallName());
+	}
 
 
 }
