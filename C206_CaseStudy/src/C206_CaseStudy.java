@@ -179,7 +179,9 @@ public class C206_CaseStudy {
 								C206_CaseStudy.updateOrder(orderList, input);
 								
 							} else if (optionCusO == 4) {// Delete order
-								C206_CaseStudy.removeOrder(orderList);
+								int input = Helper.readInt("Enter an existing Order ID > ");
+								char cfm = Helper.readChar("Are you sure? (Y/N) > ");
+								C206_CaseStudy.removeOrder(orderList, input, cfm);
 								
 							} else if (optionCusO == 5) {
 								System.out.println("Quit...");
@@ -733,14 +735,13 @@ public class C206_CaseStudy {
 	
 	// ================================= Option 3.3.4 - Remove Orders =================================
 	// Hui Ting
-	public static void removeOrder(ArrayList<CustomerOrder> orderList) {
+	public static void removeOrder(ArrayList<CustomerOrder> orderList, int input, char cfm) {
 		boolean isValid = false;
-		int input = Helper.readInt("Enter an existing Order ID > ");
+		
 		
 		for (CustomerOrder o : orderList) {
 			if (input == o.getOrderID()) {
 				isValid = true;
-				char cfm = Helper.readChar("Are you sure? (Y/N) > ");
 				if (cfm == 'Y' || cfm == 'y') {
 					orderList.remove(o);
 					System.out.println("You have successfully deleted your order");

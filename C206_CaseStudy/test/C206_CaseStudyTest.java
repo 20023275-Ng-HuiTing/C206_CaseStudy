@@ -95,11 +95,11 @@ public class C206_CaseStudyTest {
 		assertNotNull("Test if there is a valid CustomerOrder arraylist to delete from", orderList);
 		
 		//Test that orderList has 1 object after deleting one order
-		C206_CaseStudy.removeOrder(orderList);
+		C206_CaseStudy.removeOrder(orderList, co1.getOrderID(), 'Y');
 		assertEquals("Test if CustomerOrder arraylist has 1 object: " , 1, orderList.size());
 		
 		//Test that orderList is empty after deleting second order
-		C206_CaseStudy.removeOrder(orderList);
+		C206_CaseStudy.removeOrder(orderList, co2.getOrderID(), 'Y');
 		assertEquals("Test if CustomerOrder arraylist is empty: " , 0, orderList.size());
 	}
 
