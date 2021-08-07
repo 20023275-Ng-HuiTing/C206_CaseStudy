@@ -19,6 +19,12 @@ public class C206_CaseStudyTest {
 	//Charlene
 	private ArrayList<FoodItem> FoodItemList;
 	
+	// austin
+	private PurchaseOrder PO1;
+	private PurchaseOrder PO2;
+	
+	private ArrayList<PurchaseOrder> PurchaseList;
+	
 	@Before
 	public void setUp() throws Exception {
 		// prepare test data - Hui Ting
@@ -26,6 +32,13 @@ public class C206_CaseStudyTest {
 		co2 = new CustomerOrder(2, "Cake", 3, 5);
 		
 		orderList = new ArrayList<CustomerOrder>();
+		
+		// austin
+		PO1 = new PurchaseOrder("2231", "25/5/20", "Milo", 8);
+		PO2 = new PurchaseOrder("1222", "30/5/20", "Milk", 9);
+
+		PurchaseList = new ArrayList<PurchaseOrder>();
+
 	}
 
 	@After
@@ -33,6 +46,11 @@ public class C206_CaseStudyTest {
 		co1 = null;
 		co2 = null;
 		orderList = null;
+		
+		PO1 = null;
+		PO2 = null;
+		PurchaseList = null;
+
 	}
 
 	@Test
@@ -164,5 +182,71 @@ public void testviewAllFoodItem() {
   testOutput += String.format("%-5s %-10s\n", 2, "FOOD ITEM", 3, 5);
   assertEquals("Check that getFoodItem", testOutput, allFoodItem);
 }
-}
+	
+	@Test
+	public void TestaddPurchaseOrder() {
+		// Purchase list is not null, so that can add new purchase order
+		assertNotNull("Check if there is valid PurchaseOrder arraylist to add to", PurchaseList);
+		
+		//Given an empty purchase list, after adding 1 purchase order, the size of the list is 1
+		C206_CaseStudy.addPurchaseOrder(PurchaseList, PO1);		
+		assertEquals("Test if that PurchaseOrder arraylist size is 1?", 1, PurchaseList.size());
+		
+		
+		//Add another purchase order. Test the size of the purchase order list is 2?
+		C206_CaseStudy.addPurchaseOrder(PurchaseList, PO2);
+		assertEquals("Test that PurchaseOrder arraylist size is 2?", 2, PurchaseList.size());
+		assertSame("Check that PurchaseOrder is added", PO2, PurchaseList.get(1));
+	}
+	@Test
+public void TestViewAllPurchaseOrder() {
+		
+//		Test if PurchaseList is not null but empty - boundary
+		assertNotNull("Test if there is valid PurchaseOrder arraylist to retrieve purchase order", PurchaseList);
+		
+//		Test if the list of Purchase order retrieved from the Purchase List is empty - boundary
+		
+		String allPurchaseOrder = C206_CaseStudy.retrieveAllPurchaseOrder(PurchaseList);
+		
+		String testOutput = "";
+		assertEquals("Check that ViewAllPurchaseOrder", testOutput, allPurchaseOrder);
+		
+//		Given an empty list, after adding 2 purchase order, test if the size of the purchase list is 2 - normal
+		
+		C206_CaseStudy.addPurchaseOrder(PurchaseList,PO1);
+		C206_CaseStudy.addPurchaseOrder(PurchaseList,PO2);
+		
+		assertEquals("Test that PurchaseOrder arraylist size is 2", 2, PurchaseList.size());
+		
+//		Test if the expected output string same as the list of Purchase Order retrieved from PurchaseList
+		
+		allPurchaseOrder = C206_CaseStudy.retrieveAllPurchaseOrder(PurchaseList);
+		testOutput = String.format("%-10s %-20s %-30s %-20s\n", "2231", "25/5/20", "Milo", 8);
+		testOutput += String.format("%-10s %-20s %-30s %-20s\n", "1222", "30/5/20", "Milk", 9);
 
+		
+		assertEquals("Test that retrieveAllPurchaseOrder", testOutput, allPurchaseOrder);
+		
+	}
+		@Test
+		public void deletePurchaseOrder() {
+			
+//			Test if purchase order list is not null but empty - boundary
+			assertNotNull("Test if there is purchase order arraylist to retrieve purchase order", PurchaseList);
+			
+//			Test if the purchase order retrieved from the user list is empty - boundary
+		
+			assertEquals("Test that PurchaseOrder arrayList size is 0", 0, PurchaseList.size());
+			
+//			Test if the purchase order in the purchase list is able to delete 
+//			Check if the purchase order is in the array list is not deleted
+			C206_CaseStudy.addPurchaseOrder(PurchaseList, PO1);
+			C206_CaseStudy.addPurchaseOrder(PurchaseList, PO2);
+			PurchaseList.remove(PO1);
+			
+			assertEquals("Test that PurchaseOrder arraylist is 1 ", 1, PurchaseList.size());
+			
+		}
+
+
+}

@@ -19,6 +19,13 @@ public class C206_CaseStudy {
 		orderList.add(new CustomerOrder(0, "-", 0, 0));
 
 		ArrayList<Stall> StallList = new ArrayList<Stall>();
+		
+		ArrayList<PurchaseOrder> OrderList = new ArrayList<PurchaseOrder>();
+
+		OrderList.add(new PurchaseOrder("2231", "25/5/20", "Milo", 8));
+		OrderList.add(new PurchaseOrder("1222", "30/5/20", "Milk", 9));
+		OrderList.add(new PurchaseOrder("3331", "1/6/21", "Tea", 3));
+
 
 		int option = 0;
 		int optionCA = 0;
@@ -28,6 +35,7 @@ public class C206_CaseStudy {
 		int optionCAFI = 0; 
 		int optionCusO = 0;
 		int optionSSPO = 0;
+		int optionPO = 0;
 		
 		while (option != 4) { // users select which role they are
 			C206_CaseStudy.menuRole();
@@ -116,6 +124,24 @@ public class C206_CaseStudy {
 					if (optionSS == 1) { // Manage Order Status
 						
 					} else if (optionSS == 2) { // Manage Purchase Orders
+						C206_CaseStudy.PurchaseOrder(); 
+						optionPO = Helper.readInt("Enter an option > ");
+						if (optionPO == 1) {
+
+							PurchaseOrder p = inputPurchaseOrder();
+							C206_CaseStudy.addPurchaseOrder(OrderList, p);
+
+						} else if (optionPO == 2) {
+							C206_CaseStudy.viewAllPurchaseOrder(OrderList);
+						} else if (optionPO == 3) {
+							C206_CaseStudy.PurchaseOrder(OrderList);
+						}
+						else if (optionPO == 4) {
+							C206_CaseStudy.deletePurchaseOrder(OrderList);
+						}
+							else if (optionPO == 5){
+							System.out.println("Have a nice day");
+						}
 
 					} else if (optionSS == 3) { // Manage Promotion Offers
 						C206_CaseStudy.menuSSPO();
@@ -273,6 +299,19 @@ public class C206_CaseStudy {
 		System.out.println("1.Add Promotion Offers\n2.View Promotion Offers\n3.Change Promotion Offers"
 				+ "\n4.Remove Promotion Offers\n5. Quit");
 	}
+	
+	public static void PurchaseOrder() {
+		Helper.line(70, "-");
+		System.out.println("Select purchase option");
+		Helper.line(70, "-");
+		System.out.println("1. Add purchase ");
+		System.out.println("2. View purchase");
+		System.out.println("3. Change purchase");
+		System.out.println("4. Delete purchase");
+		System.out.println("5. Quit");
+	}
+
+
 	
 	public static String showAvailability(boolean isAvailable) {
 		String avail;
@@ -520,9 +559,96 @@ public class C206_CaseStudy {
 	// ================================= Option 2.1 - View orders and update status  =================================
 	
 	// ================================= Option 2.2.1 - Add purchase orders   =================================
+	//austin
+	public static PurchaseOrder inputPurchaseOrder() {
+		String POnum = Helper.readString("Enter purchase number > ");
+		String PODate = Helper.readString("Enter purchase date > ");
+		String ingredientsDesc = Helper.readString("Enter ingredients description > ");
+		int ingredientsQty = Helper.readInt("Enter ingredients quantity > ");
+
+		PurchaseOrder cc = new PurchaseOrder(POnum, PODate, ingredientsDesc, ingredientsQty);
+		return cc;
+
+	}
+	
+	public static void addPurchaseOrder(ArrayList<PurchaseOrder> PurchaseList, PurchaseOrder cc) {
+
+		PurchaseList.add(cc);
+		System.out.println("Purchase order added");
+	}
+
+	public static String retrieveAllPurchaseOrder(ArrayList<PurchaseOrder> PurchaseList) {
+		String output = "";
+
+		for (int i = 0; i < PurchaseList.size(); i++) {
+
+			output += String.format("%-10s %-20s %-30s %-20s\n", PurchaseList.get(i).getPONum(),
+					PurchaseList.get(i).getPODate(), PurchaseList.get(i).getIngredientsDesc(), PurchaseList.get(i).getIngredientsQty());
+
+		}
+		return output;
+	}
+
 	// ================================= Option 2.2.2 - View purchase orders   =================================
+	//austin
+	public static void viewAllPurchaseOrder(ArrayList<PurchaseOrder> PurchaseList) {
+		Helper.line(50, "-");
+	    System.out.print("Purchcase Order List\n");
+	    Helper.line(50, "-");
+		String output = String.format("%-10s %-20s %-30s %-20s\n", "PONum", "PODate",
+				"IngredientsDesc", "IngredientsQty");
+		 output += retrieveAllPurchaseOrder(PurchaseList);	
+		System.out.println(output);
+	}
+
 	// ================================= Option 2.2.3 - Change purchase orders   =================================
+	//austin
+	public static boolean PurchaseOrder(ArrayList<PurchaseOrder> PurchaseList) {
+		String POnum = Helper.readString("Enter purchase number > ");
+
+		boolean	isUpdated = false;
+
+		for (int i = 0; i < PurchaseList.size(); i++) {
+			if (POnum.equals(PurchaseList.get(i).getPONum())) {
+				String POnum1 = Helper.readString("Enter new purchase order number > ");
+				
+				PurchaseList.get(i).setPONum(POnum1);
+				System.out.println("Purchase order number has been updated");
+				break;
+				
+			} else {
+				System.out.println("The purchase order number is invalid");
+				isUpdated = true;
+				break;
+
+			}
+		}
+
+		return isUpdated; 
+	}
 	// ================================= Option 2.2.4 - Remove purchase orders   =================================
+	//austin
+	public static void deletePurchaseOrder(ArrayList<PurchaseOrder> PurchaseList) {
+		Helper.line(50, "-");
+	    System.out.print("Delete Purchase Order\n");
+	    Helper.line(50, "-");
+	    
+
+			boolean isDeleted = false;
+			  String Purchaseo = Helper.readString("Enter purchase order that you wish to delete > ");
+			    for (int i = 0; i < PurchaseList.size(); i++) {
+			    	if (PurchaseList.get(i).getPONum().equalsIgnoreCase(Purchaseo)) {
+			    		PurchaseList.remove(i); 
+			    		isDeleted = true;
+		}
+						
+			}if (isDeleted == true) {
+				System.out.println("Purchase has been deleted successfully");
+			}else if (isDeleted == false) {
+				System.out.println("Purchase has not been deleted successfully");
+			}
+		}
+
 	
 	
 	
