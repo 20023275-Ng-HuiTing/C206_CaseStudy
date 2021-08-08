@@ -65,7 +65,9 @@ public class C206_CaseStudy {
 								C206_CaseStudy.deleteStall(StallList);
 								
 							} else if (optionCAS == 4) {// update stall
-								C206_CaseStudy.UpdateStall(StallList, null );
+								String name2 = Helper.readString("Enter Stall name > ");
+								String date2 = Helper.readString("Enter date of operation > ");
+								C206_CaseStudy.UpdateStall(StallList, name2, date2);
 								
 							} else if (optionCAS == 5) {// QUIT
 								System.out.println("Quit.");
@@ -386,20 +388,17 @@ public class C206_CaseStudy {
 
 	// ================================= Option 1.1.3 - Change stalls =================================
 	// gary
-	public static boolean UpdateStall(ArrayList<Stall> StallList, String date) {
-		String date2 = Helper.readString("Enter date of operation > ");
-		String name2 = Helper.readString("Enter Stall name > ");
-
+	public static boolean UpdateStall(ArrayList<Stall> StallList, String name2, String date2) {
 		boolean isUpdated = false;
 
-		for (int i = 0; i < StallList.size(); i++) {
+		for (int i = 0; i < StallList.size();) {
 			if (date2.equals(StallList.get(i).getDate()) || name2.equals(StallList.get(i).getStallName())) {
 				String name1 = Helper.readString("Enter new Stall name > ");
 				String date1 = Helper.readString("new Date of operation > ");
-
 				StallList.get(i).setDate(date1);
 				StallList.get(i).setStallName(name1);
 				System.out.println("Stall has been updated");
+				break;
 			} else {
 				System.out.println("The Stall name/date or operation is in correct");
 				isUpdated = true;
@@ -407,29 +406,19 @@ public class C206_CaseStudy {
 
 			}
 		}
-
 		return isUpdated;
-
 	}
 
 	// ================================= Option 1.1.4 - Remove stalls =================================
 	// gary
 
-	private static void deleteStall(ArrayList<Stall> StallList) {
-		System.out.println("1. Name");
-		System.out.println("2. Date Of Operation");
+	public static void deleteStall(ArrayList<Stall> StallList) {
+		System.out.println("1. Date Of Operation");
 		int finderIndex = Helper.readInt("Which method do you wish to search by? > ");
 
 		ArrayList<Stall> findStallItemList = new ArrayList<Stall>();
 
 		if (finderIndex == 1) {
-			String StallName = Helper.readString("Enter Stall Name > ");
-			for (Stall sa : StallList) {
-				if (sa.getStallName().equalsIgnoreCase(StallName)) {
-					findStallItemList.add(sa);
-				}
-			}
-		} else if (finderIndex == 2) {
 			String doo = Helper.readString("Enter Date Of Operation > ");
 			for (Stall sa : StallList) {
 				if (sa.getDate().contains(doo)) {
@@ -454,10 +443,11 @@ public class C206_CaseStudy {
 					String category = findStallItemList.get(choice - 1).getDate();
 
 					for (int x = 0; x < StallList.size(); x++) {
-						if (StallList.get(x).getStallName().equals(name) && StallList.get(x).getDate().equals(category))
+						if (StallList.get(x).getStallName().equals(name) && StallList.get(x).getDate().equals(category)) {
 							StallList.remove(x);
+							System.out.println(name + " is removed!");
+						}
 					}
-					System.out.println(name + " is removed!");
 				}
 			}
 		}
@@ -608,7 +598,7 @@ public class C206_CaseStudy {
 
 		boolean	isUpdated = false;
 
-		for (int i = 0; i < PurchaseList.size(); i++) {
+		for (int i = 0; i < PurchaseList.size();) {
 			if (POnum.equals(PurchaseList.get(i).getPONum())) {
 				String POnum1 = Helper.readString("Enter new purchase order number > ");
 				
@@ -623,7 +613,6 @@ public class C206_CaseStudy {
 
 			}
 		}
-
 		return isUpdated; 
 	}
 	// ================================= Option 2.2.4 - Remove purchase orders   =================================
@@ -648,10 +637,6 @@ public class C206_CaseStudy {
 				System.out.println("Purchase has not been deleted successfully");
 			}
 		}
-
-	
-	
-	
 	
 	// ================================= Option 2.3.1 - Add Promotion Offers   =================================
 	public static PromotionOffers inputPromotion(ArrayList<FoodItem> foodItemList, ArrayList<PromotionOffers> promoList) {
@@ -697,8 +682,6 @@ public class C206_CaseStudy {
 		}
 		
 	}
-	
-	
 	
 	// ================================= Option 2.3.2 - View Promotion Offers   =================================
 	
@@ -749,7 +732,6 @@ public class C206_CaseStudy {
 			System.out.println("Item Name does not Exist!");
 		}
 	}
-	
 	
 	// ================================= Option 3 - Customer =================================
 

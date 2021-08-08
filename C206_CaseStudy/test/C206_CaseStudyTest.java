@@ -10,26 +10,21 @@ public class C206_CaseStudyTest {
 	//HuiTing
 	private CustomerOrder co1;
 	private CustomerOrder co2;
+	private ArrayList<CustomerOrder> orderList;
+	
 	//Charlene
 	private FoodItem FI1;
 	private FoodItem FI2;
-
-	
-	private ArrayList<CustomerOrder> orderList;
-	//Charlene
 	private ArrayList<FoodItem> FoodItemList;
+	
 	//Gary
 	private Stall s1;
 	private Stall s2;
-	private Stall s3;
-	private Stall s4;
-	
 	private ArrayList<Stall> StallList;
 	
 	// austin
 	private PurchaseOrder PO1;
 	private PurchaseOrder PO2;
-	
 	private ArrayList<PurchaseOrder> PurchaseList;
 	
 	@Before
@@ -37,40 +32,35 @@ public class C206_CaseStudyTest {
 		// prepare test data - Hui Ting
 		co1 = new CustomerOrder(1, "Cupcake", 1, 2);
 		co2 = new CustomerOrder(2, "Cake", 3, 5);
-		
 		orderList = new ArrayList<CustomerOrder>();
 		
 		// austin
 		PO1 = new PurchaseOrder("2231", "25/5/20", "Milo", 8);
 		PO2 = new PurchaseOrder("1222", "30/5/20", "Milk", 9);
-
 		PurchaseList = new ArrayList<PurchaseOrder>();
-		//prepare test data - Gary
 		
+		//prepare test data - Gary
 		s1 = new Stall("Chicken Rice Shop", "13 June 2020");
 		s2 = new Stall("Chinese Noodle Shop", "13 May 2019");
-		s3 = new Stall("Prata Shop", "15 February 2015");
-		s4 = new Stall("Western Delight", "2 January 2018");
-		
-		
-		
 		StallList = new ArrayList<Stall>();
 
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		//hui ting
 		co1 = null;
 		co2 = null;
 		orderList = null;
 		
+		//austin
 		PO1 = null;
 		PO2 = null;
 		PurchaseList = null;
+		
+		//gary
 		s1 = null;
 		s2 = null;
-		s3 = null;
-		s4 = null;
 		StallList = null;
 	}
 
@@ -233,9 +223,7 @@ public void testupdateFoodItem() {
 	assertEquals("Test if the Stall increased by 1: ", 3, FI1.getFoodItemName());
 }
 
-
-
-	
+	//======================== Test Purchase Order - Austin =================================
 	@Test
 	public void TestaddPurchaseOrder() {
 		// Purchase list is not null, so that can add new purchase order
@@ -252,71 +240,61 @@ public void testupdateFoodItem() {
 		assertSame("Check that PurchaseOrder is added", PO2, PurchaseList.get(1));
 	}
 	@Test
-public void TestViewAllPurchaseOrder() {
+	public void TestViewAllPurchaseOrder() {
 		
-//		Test if PurchaseList is not null but empty - boundary
+		//Test if PurchaseList is not null but empty - boundary
 		assertNotNull("Test if there is valid PurchaseOrder arraylist to retrieve purchase order", PurchaseList);
 		
-//		Test if the list of Purchase order retrieved from the Purchase List is empty - boundary
-		
+		//Test if the list of Purchase order retrieved from the Purchase List is empty - boundary
 		String allPurchaseOrder = C206_CaseStudy.retrieveAllPurchaseOrder(PurchaseList);
-		
 		String testOutput = "";
 		assertEquals("Check that ViewAllPurchaseOrder", testOutput, allPurchaseOrder);
 		
-//		Given an empty list, after adding 2 purchase order, test if the size of the purchase list is 2 - normal
-		
+		//Given an empty list, after adding 2 purchase order, test if the size of the purchase list is 2 - normal
 		C206_CaseStudy.addPurchaseOrder(PurchaseList,PO1);
 		C206_CaseStudy.addPurchaseOrder(PurchaseList,PO2);
-		
 		assertEquals("Test that PurchaseOrder arraylist size is 2", 2, PurchaseList.size());
 		
-//		Test if the expected output string same as the list of Purchase Order retrieved from PurchaseList
-		
+		//Test if the expected output string same as the list of Purchase Order retrieved from PurchaseList
 		allPurchaseOrder = C206_CaseStudy.retrieveAllPurchaseOrder(PurchaseList);
 		testOutput = String.format("%-10s %-20s %-30s %-20s\n", "2231", "25/5/20", "Milo", 8);
 		testOutput += String.format("%-10s %-20s %-30s %-20s\n", "1222", "30/5/20", "Milk", 9);
-
-		
 		assertEquals("Test that retrieveAllPurchaseOrder", testOutput, allPurchaseOrder);
 		
 	}
 		@Test
 		public void deletePurchaseOrder() {
 			
-//			Test if purchase order list is not null but empty - boundary
+			//Test if purchase order list is not null but empty - boundary
 			assertNotNull("Test if there is purchase order arraylist to retrieve purchase order", PurchaseList);
 			
-//			Test if the purchase order retrieved from the user list is empty - boundary
-		
+			//Test if the purchase order retrieved from the user list is empty - boundary
 			assertEquals("Test that PurchaseOrder arrayList size is 0", 0, PurchaseList.size());
 			
-//			Test if the purchase order in the purchase list is able to delete 
-//			Check if the purchase order is in the array list is not deleted
+			//Test if the purchase order in the purchase list is able to delete 
+			//Check if the purchase order is in the array list is not deleted
 			C206_CaseStudy.addPurchaseOrder(PurchaseList, PO1);
 			C206_CaseStudy.addPurchaseOrder(PurchaseList, PO2);
 			PurchaseList.remove(PO1);
-			
 			assertEquals("Test that PurchaseOrder arraylist is 1 ", 1, PurchaseList.size());
 			
 		}
+		
 	//======================== Stall test method - Gary =================================
-	
 	@Test
 	public void testAddStall() {
 		// Stall List is not null, so that can add a new Stall
-		assertNull("Test if there is valid Stall arraylist to add to ", StallList);
+		assertNotNull("Test if there is valid Stall arraylist to add to ", StallList);
 		
 		//Given an empty list, after adding 1 stall, the size of the list is 1
-		Stall.addStall(StallList,s1);
+		C206_CaseStudy.addStall(StallList,s1);
 		assertEquals("Test if the Stall arraylist size is 1?",1,StallList.size());
-		
 		
 		//The Stall just added is as same as the First Stall of the list
 		assertSame("Test that Stall is added same as 1st item of the list?", s1, StallList.get(0));
 		
 		//Add another stall. test that the size of the list is 2?
-		Stall.addStall(StallList, s2);
+		C206_CaseStudy.addStall(StallList, s2);
 		assertEquals("Test that Stall arraylist size is 2?", 2, StallList.size());
 		
 	}
@@ -384,8 +362,8 @@ public void TestViewAllPurchaseOrder() {
 		assertEquals("Test if the Stall arraylist size is 1: ", 1, StallList.size());
 		
 		//Test that after updating, Stall quantity increases by 1
-		C206_CaseStudy.UpdateStall(StallList, s1.getStallName());
-		assertEquals("Test if the Stall increased by 1: ", 3, s1.getStallName());
+		C206_CaseStudy.UpdateStall(StallList, s1.getStallName(), s1.getDate());
+		assertEquals("Test if the Stall name changed: ", "Char Siew Rice Shop", s1.getStallName());
 	}
 
 
