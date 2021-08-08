@@ -18,6 +18,13 @@ public class C206_CaseStudyTest {
 	private ArrayList<CustomerOrder> orderList;
 	//Charlene
 	private ArrayList<FoodItem> FoodItemList;
+	//Gary
+	private Stall s1;
+	private Stall s2;
+	private Stall s3;
+	private Stall s4;
+	
+	private ArrayList<Stall> StallList;
 	
 	// austin
 	private PurchaseOrder PO1;
@@ -38,6 +45,16 @@ public class C206_CaseStudyTest {
 		PO2 = new PurchaseOrder("1222", "30/5/20", "Milk", 9);
 
 		PurchaseList = new ArrayList<PurchaseOrder>();
+		//prepare test data - Gary
+		
+		s1 = new Stall("Chicken Rice Shop", "13 June 2020");
+		s2 = new Stall("Chinese Noodle Shop", "13 May 2019");
+		s3 = new Stall("Prata Shop", "15 February 2015");
+		s4 = new Stall("Western Delight", "2 January 2018");
+		
+		
+		
+		StallList = new ArrayList<Stall>();
 
 	}
 
@@ -50,7 +67,11 @@ public class C206_CaseStudyTest {
 		PO1 = null;
 		PO2 = null;
 		PurchaseList = null;
-
+		s1 = null;
+		s2 = null;
+		s3 = null;
+		s4 = null;
+		StallList = null;
 	}
 
 	@Test
@@ -182,6 +203,38 @@ public void testviewAllFoodItem() {
   testOutput += String.format("%-5s %-10s\n", 2, "FOOD ITEM", 3, 5);
   assertEquals("Check that getFoodItem", testOutput, allFoodItem);
 }
+@Test
+public void testRemoveFoodItem() {
+	C206_CaseStudy.addFoodItem(FoodItemList, FI1);
+	C206_CaseStudy.addFoodItem(FoodItemList, FI2);
+	
+	//Test that FoodItemList is not null before deleting Food Item
+	assertNotNull("Test if there is a valid Stall arraylist to delete from", FoodItemList);
+	
+	//Test that FoodItemList has 1 Food Item after deleting one Food Item
+	C206_CaseStudy.removeFoodItem(FoodItemList);
+	assertEquals("Test if Food Item arraylist has 1 food: " , 1, FoodItemList.size());
+	
+	//Test that FoodItemList is empty after deleting second Food Item
+	C206_CaseStudy.removeFoodItem(FoodItemList);
+	assertEquals("Test if Stall arraylist is empty: " , 0, FoodItemList.size());
+}
+@Test
+public void testupdateFoodItem() {
+	//Test that FoodItemList is not null before updating Food Item
+	assertNotNull("Test if there is a valid Food Item arraylist to update", FoodItemList);
+	
+	//Given an empty list, after adding 1 object, size of list will be 1
+	C206_CaseStudy.addFoodItem(FoodItemList, FI1);
+	assertEquals("Test if the Stall arraylist size is 1: ", 1, FoodItemList.size());
+	
+	//Test that after updating, Stall quantity increases by 1
+	C206_CaseStudy.addFoodItem(FoodItemList, FI1.getFoodItemName());
+	assertEquals("Test if the Stall increased by 1: ", 3, FI1.getFoodItemName());
+}
+
+
+
 	
 	@Test
 	public void TestaddPurchaseOrder() {
@@ -247,6 +300,93 @@ public void TestViewAllPurchaseOrder() {
 			assertEquals("Test that PurchaseOrder arraylist is 1 ", 1, PurchaseList.size());
 			
 		}
+	//======================== Stall test method - Gary =================================
+	
+	@Test
+	public void testAddStall() {
+		// Stall List is not null, so that can add a new Stall
+		assertNull("Test if there is valid Stall arraylist to add to ", StallList);
+		
+		//Given an empty list, after adding 1 stall, the size of the list is 1
+		Stall.addStall(StallList,s1);
+		assertEquals("Test if the Stall arraylist size is 1?",1,StallList.size());
+		
+		
+		//The Stall just added is as same as the First Stall of the list
+		assertSame("Test that Stall is added same as 1st item of the list?", s1, StallList.get(0));
+		
+		//Add another stall. test that the size of the list is 2?
+		Stall.addStall(StallList, s2);
+		assertEquals("Test that Stall arraylist size is 2?", 2, StallList.size());
+		
+	}
+	@Test
+		public void testRetrieveAllStall() {
+		// test if Stall list is not null but empty, so that can add new Stall
+		assertNotNull("Test if there is valid Stall arraylist to add to ", StallList);
+		
+		// test if the list of Stall retrieved from the StallList is empty
+		
+		String allStall = C206_CaseStudy.retrieveAllStall(StallList);
+		String  testOutput ="";
+		assertEquals("Check ViewAllStallList", testOutput, allStall);
+		
+		//Given an empty list, after adding 2 stalls , test if the size of the list is 2 
+		C206_CaseStudy.addStall(StallList, s1);
+		C206_CaseStudy.addStall(StallList, s2);
+		assertEquals("Test if that Stall arraylist size is 2?", 2, StallList.size());
+		
+		//test if the expected output string same as the list of stalls retrieved from the Stall_test
+		allStall = C206_CaseStudy.retrieveAllStall(StallList);
+		
+	}
+	@Test
+	public void testviewAllStall() {
+		//Test that StallList is not null before viewing orders
+		assertNotNull("Test if there is a valid Stall arraylist to view", StallList);
+		
+		//Given an empty list, after adding 2 items, test if the size of the list is 2
+		C206_CaseStudy.addStall(StallList, s1);
+		C206_CaseStudy.addStall(StallList, s2);
+		assertEquals("Test if that Stall arraylist size is 2: ", 2, StallList.size());
+		
+		//test if the expected output string same as the list of orders retrieved from the C206_CaseStudy
+		String allStall = C206_CaseStudy.retrieveAllStall(StallList);
+		String testOutput = "";
+		allStall = C206_CaseStudy.retrieveAllStall(StallList);
+		testOutput = String.format("%-10s %40s\n",   "Chicken Rice Shop", " 13 June 2020");
+		testOutput += String.format("%-10s %40s\n", "Chinese Noodle Shop", "13 May 2019");
+		assertEquals("Check that getStall", testOutput, allStall);
+	}
+	@Test
+	public void testRemoveStall() {
+		C206_CaseStudy.addStall(StallList, s1);
+		C206_CaseStudy.addStall(StallList, s2);
+		
+		//Test that StallList is not null before deleting Stalls
+		assertNotNull("Test if there is a valid Stall arraylist to delete from", StallList);
+		
+		//Test that StallList has 1 Stall after deleting one Stall
+		C206_CaseStudy.deleteStall(StallList);
+		assertEquals("Test if Stall arraylist has 1 stall: " , 1, StallList.size());
+		
+		//Test that StallList is empty after deleting second Stall
+		C206_CaseStudy.deleteStall(StallList);
+		assertEquals("Test if Stall arraylist is empty: " , 0, StallList.size());
+	}
+	@Test
+	public void testupdateStall() {
+		//Test that StallList is not null before updating Stalls
+		assertNotNull("Test if there is a valid Stall arraylist to update", StallList);
+		
+		//Given an empty list, after adding 1 object, size of list will be 1
+		C206_CaseStudy.addStall(StallList, s1);
+		assertEquals("Test if the Stall arraylist size is 1: ", 1, StallList.size());
+		
+		//Test that after updating, Stall quantity increases by 1
+		C206_CaseStudy.UpdateStall(StallList, s1.getStallName());
+		assertEquals("Test if the Stall increased by 1: ", 3, s1.getStallName());
+	}
 
 
 }
