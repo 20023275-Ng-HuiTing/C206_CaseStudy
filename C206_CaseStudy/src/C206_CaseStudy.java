@@ -131,6 +131,7 @@ public class C206_CaseStudy {
 								
 							} else if (optionSSPO == 3) {
 								C206_CaseStudy.changePromo(promoList);
+								break;
 								
 							} else if (optionSSPO == 4) {
 								C206_CaseStudy.removePromo(promoList);
@@ -537,7 +538,6 @@ public class C206_CaseStudy {
 		} else {
 			System.out.println("Promotion unsuccessfully added!");
 		}
-		
 	}
 	
 	
@@ -560,10 +560,25 @@ public class C206_CaseStudy {
 	
 	// ================================= Option 2.3.3 - Change Promotion Offers   =================================
 	public static void changePromo(ArrayList<PromotionOffers> promoList) {
+		boolean isValid = false;
 		
+		String foodName = Helper.readString("Enter Food Name > ");
+		
+		for (PromotionOffers p : promoList) {
+			if (foodName.equalsIgnoreCase(p.getFoodItemName())) {
+				int updatePrice = Helper.readInt("New Promotional Price > ");
+				p.setFoodItemPromotionPrice(updatePrice);
+				isValid = true;
+			}
+		}
+		
+		if (isValid == true) {
+			System.out.println("Updated Promotion Price Successful!");
+		}
+		else if (isValid == false) {
+			System.out.println("Updated Promotion Price UUnsuccesful!");
+		}
 	}
-	
-	
 	// ================================= Option 2.3.4 - Remove Promotion Offers   =================================
 	public static void removePromo(ArrayList<PromotionOffers> promoList) {
 		
