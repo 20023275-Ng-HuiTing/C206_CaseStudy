@@ -550,6 +550,10 @@ public class C206_CaseStudy {
 	// ================================= Option 2 - Stall Staff =================================
 	// ================================= Option 2.1 - View orders and update status  =================================
 	
+	
+	
+	
+	
 	// ================================= Option 2.2.1 - Add purchase orders   =================================
 	//austin
 	public static PurchaseOrder inputPurchaseOrder() {
@@ -641,6 +645,7 @@ public class C206_CaseStudy {
 		}
 	
 	// ================================= Option 2.3.1 - Add Promotion Offers   =================================
+	//Done by Syafiq
 	public static PromotionOffers inputPromotion(ArrayList<FoodItem> foodItemList, ArrayList<PromotionOffers> promoList) {
 		int promoprice = 0;
 		String startDate = "";
