@@ -95,7 +95,7 @@ public class C206_CaseStudyTest {
 		assertTrue("C206_CaseStudy_SampleTest ",true);
 	}
 	
-/*	//======================== Order test method - Hui Ting =================================
+	//======================== Order test method - Hui Ting =================================
 	@Test
 	public void testAddOrder() {
 		//Order list is not null (to add new objects)
@@ -393,7 +393,7 @@ public void testupdateFoodItem() {
 		C206_CaseStudy.UpdateStall(StallList, s1.getStallName(), s1.getDate());
 		assertEquals("Test if the Stall name changed: ", "Char Siew Rice Shop", s1.getStallName());
 	}
-*/	
+	
 	//======================== Promotion Items test method - Syafiq =================================
 	public void testAddPromotionPrice() {
 		
