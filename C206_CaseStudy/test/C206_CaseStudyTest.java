@@ -27,6 +27,11 @@ public class C206_CaseStudyTest {
 	private PurchaseOrder PO2;
 	private ArrayList<PurchaseOrder> PurchaseList;
 	
+	//Syafiq
+	private PromotionOffers p1;
+	private PromotionOffers p2;
+	private ArrayList<PromotionOffers> promoList;
+	
 	@Before
 	public void setUp() throws Exception {
 		// prepare test data - Hui Ting
@@ -48,7 +53,12 @@ public class C206_CaseStudyTest {
 		s1 = new Stall("Chicken Rice Shop", "13 June 2020");
 		s2 = new Stall("Chinese Noodle Shop", "13 May 2019");
 		StallList = new ArrayList<Stall>();
-
+		
+		
+		//syafiq
+		p1 = new PromotionOffers("Cupcake", 3, 2, "24/5/2020", "25/5/2020");
+		p2 = new PromotionOffers("Chicken", 4, 3, "25/5/2020", "26/5/2020");
+		promoList = new ArrayList<PromotionOffers>();
 	}
 
 	@After
@@ -72,6 +82,11 @@ public class C206_CaseStudyTest {
 		s1 = null;
 		s2 = null;
 		StallList = null;
+		
+		//syafiq
+		p1 = null;
+		p2 = null;
+		promoList = null;
 	}
 
 	@Test
@@ -80,7 +95,7 @@ public class C206_CaseStudyTest {
 		assertTrue("C206_CaseStudy_SampleTest ",true);
 	}
 	
-	//======================== Order test method - Hui Ting =================================
+/*	//======================== Order test method - Hui Ting =================================
 	@Test
 	public void testAddOrder() {
 		//Order list is not null (to add new objects)
@@ -378,5 +393,68 @@ public void testupdateFoodItem() {
 		C206_CaseStudy.UpdateStall(StallList, s1.getStallName(), s1.getDate());
 		assertEquals("Test if the Stall name changed: ", "Char Siew Rice Shop", s1.getStallName());
 	}
+*/	
+	//======================== Promotion Items test method - Syafiq =================================
+	public void testAddPromotionPrice() {
+		
+		//Promotion Item list is not null (to add new objects)
+		assertNotNull("Test if there is a valid PromotionOffers arraylist to add to", promoList);
+		
+		//Given an empty list, after adding 1 object, size of list will be 1
+		C206_CaseStudy.addPromo(promoList, p1);
+		assertEquals("Test if the PromotionOffers arraylist size is 1: ", 1, promoList.size());
 
+		//Add another object. Is the size of the list is 2?
+		C206_CaseStudy.addPromo(promoList, p2);
+		assertEquals("Test if the PromotionOffers arraylist size is 2: ", 2, promoList.size());
+	}
+	
+	@Test
+	public void testviewAllPromotionItems() {
+		//Test that promoList is not null before viewing orders
+		assertNotNull("Test if there is a valid PromotionOffers arraylist to view", promoList);
+		
+		//test if the list of Promotional Items retrieved from the C206_CaseStudy is empty
+		C206_CaseStudy.addPromo(promoList, p1);
+		C206_CaseStudy.addPromo(promoList, p2);
+		assertEquals("Test if that PromotionOffers arraylist size is 2?", 2, promoList.size());
+		
+		//test if the expected output string same as the list of orders retrieved from the C206_CaseStudy
+		String allPromotions = C206_CaseStudy.getPromo(promoList);
+		String testOutput = "";
+		testOutput += String.format("%-10s $%-9d $%-19d %-19s %-15s\n",  "Cupcake", 3, 2, "24/5/2020", "25/5/2020");
+		testOutput += String.format("%-10s $%-9d $%-19d %-19s %-15s\n", "Chicken", 4, 3, "25/5/2020", "26/5/2020");
+		assertEquals("Check that getPromotionOffers", testOutput, allPromotions);
+	}
+	
+	@Test
+	public void testupdatePromotionOffers() {
+		//Test that orderList is not null before updating orders
+		assertNotNull("Test if there is a valid PromotionOffers arraylist to update", promoList);
+		
+		//Given an empty list, after adding 1 object, size of list will be 1
+		C206_CaseStudy.addPromo(promoList, p1);
+		assertEquals("Test if the PromotionOffers arraylist size is 1: ", 1, promoList.size());
+		
+		//Test that after updating, order quantity increases by 1
+		C206_CaseStudy.changePromo(promoList, p1.getFoodItemName(), p1.getFoodItemPromotionPrice());
+		assertEquals("Test if the Promotion price has changed", 2, p1.getFoodItemPromotionPrice());
+	}
+	
+	@Test
+	public void testremovePromotionOffer() {
+		C206_CaseStudy.addPromo(promoList, p1);
+		C206_CaseStudy.addPromo(promoList, p2);
+		
+		//Test that orderList is not null before deleting orders
+		assertNotNull("Test if there is a valid PromotionOffers arraylist to delete from", promoList);
+		
+		//Test that orderList has 1 object after deleting one order
+		C206_CaseStudy.removePromo(promoList, p1.getFoodItemName());
+		assertEquals("Test if PromotionOffers arraylist has 1 object: " , 1, promoList.size());
+		
+		//Test that orderList is empty after deleting second order
+		C206_CaseStudy.removePromo(promoList, p2.getFoodItemName());
+		assertEquals("Test if PromotionOffers arraylist is empty: " , 0, promoList.size());
+	}
 }

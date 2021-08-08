@@ -161,11 +161,14 @@ public class C206_CaseStudy {
 								break;
 								
 							} else if (optionSSPO == 3) {
-								C206_CaseStudy.changePromo(promoList);
+								String foodName = Helper.readString("Enter Food Name > ");
+								int updatePrice = Helper.readInt("New Promotional Price > ");
+								C206_CaseStudy.changePromo(promoList, foodName, updatePrice);
 								break;
 								
 							} else if (optionSSPO == 4) {
-								C206_CaseStudy.removePromo(promoList);
+								String itemName = Helper.readString("Enter an existing Item name > ");
+								C206_CaseStudy.removePromo(promoList, itemName);
 								break;
 								
 							} else if (optionSSPO == 5) {
@@ -690,7 +693,6 @@ public class C206_CaseStudy {
 	}
 	
 	// ================================= Option 2.3.2 - View Promotion Offers   =================================
-	
 	public static void viewPromotionOffers(ArrayList<PromotionOffers> promoList) {
 		
 		String output = "";
@@ -706,14 +708,13 @@ public class C206_CaseStudy {
 	}
 	
 	// ================================= Option 2.3.3 - Change Promotion Offers   =================================
-	public static void changePromo(ArrayList<PromotionOffers> promoList) {
+	public static void changePromo(ArrayList<PromotionOffers> promoList, String foodName, int updatePrice) {
 		boolean isValid = false;
 		
-		String foodName = Helper.readString("Enter Food Name > ");
+		
 		
 		for (PromotionOffers p : promoList) {
 			if (foodName.equalsIgnoreCase(p.getFoodItemName())) {
-				int updatePrice = Helper.readInt("New Promotional Price > ");
 				p.setFoodItemPromotionPrice(updatePrice);
 				isValid = true;
 			}
@@ -723,14 +724,14 @@ public class C206_CaseStudy {
 			System.out.println("Updated Promotion Price Successful!");
 		}
 		else if (isValid == false) {
-			System.out.println("Updated Promotion Price UUnsuccesful!");
+			System.out.println("Updated Promotion Price Unsuccesful!");
 		}
 	}
 	// ================================= Option 2.3.4 - Remove Promotion Offers   =================================
-	public static void removePromo(ArrayList<PromotionOffers> promoList) {
+	public static void removePromo(ArrayList<PromotionOffers> promoList, String itemName) {
 		
 		boolean isValid = false;
-		String itemName = Helper.readString("Enter an existing Item name > ");
+		
 		
 		for (PromotionOffers p : promoList) {
 			
@@ -814,6 +815,16 @@ public class C206_CaseStudy {
 	}
 	
 	// ================================= Option 3.3.2 - View Orders =================================
+	
+	public static String getPromo(ArrayList<PromotionOffers> promoList) {
+		String output = "";
+		
+		for (PromotionOffers po : promoList) {
+			output += po.printInfo();
+		}
+		return output;
+	}
+
 	public static String getOrder(ArrayList<CustomerOrder> orderList) {
 		String output = "";
 
