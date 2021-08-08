@@ -500,7 +500,8 @@ public class C206_CaseStudy {
 
 		for (int i = 0; i < FoodItemList.size(); i++) {
 			if (foodName.equals(FoodItemList.get(i).getFoodItemName())) {
-				int price = Helper.readInt("Enter new price > ");
+				double price0 = FoodItemList.get(i).getFoodItemSellingPrice() * 1.3;
+				int price = (int) Math.round(price0);
 				
 				FoodItemList.get(i).setFoodItemSellingPrice(price);
 				System.out.println("Price for " + foodName + " is updated.");

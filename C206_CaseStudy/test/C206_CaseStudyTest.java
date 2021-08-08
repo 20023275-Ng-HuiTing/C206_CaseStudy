@@ -34,6 +34,11 @@ public class C206_CaseStudyTest {
 		co2 = new CustomerOrder(2, "Cake", 3, 5);
 		orderList = new ArrayList<CustomerOrder>();
 		
+		// Added by Hui Ting
+		FI1 = new FoodItem("Cupcake", 3);
+		FI2 = new FoodItem("Chicken", 4);
+		FoodItemList = new ArrayList<FoodItem>();
+		
 		// austin
 		PO1 = new PurchaseOrder("2231", "25/5/20", "Milo", 8);
 		PO2 = new PurchaseOrder("1222", "30/5/20", "Milk", 9);
@@ -52,6 +57,11 @@ public class C206_CaseStudyTest {
 		co1 = null;
 		co2 = null;
 		orderList = null;
+		
+		// added by Hui Ting
+		FI1 = null;
+		FI2 = null;
+		FoodItemList = null;
 		
 		//austin
 		PO1 = null;
@@ -136,11 +146,12 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.removeOrder(orderList, co2.getOrderID(), 'Y');
 		assertEquals("Test if CustomerOrder arraylist is empty: " , 0, orderList.size());
 	}
+	
 //===================================== Food Item test method - Charlene ===========================================
 @Test
 public void testAddFoodItem() {
   // Food Item List is not null, so that can add a new Food Item
-  assertNull("Test if there is valid Food Item arraylist to add to ", FoodItemList);
+  assertNotNull("Test if there is valid Food Item arraylist to add to ", FoodItemList);
   
   //Given an empty list, after adding 1 stall, the size of the list is 1
   C206_CaseStudy.addFoodItem(FoodItemList,FI1);
@@ -189,8 +200,8 @@ public void testviewAllFoodItem() {
   String allFoodItem = C206_CaseStudy.retrieveAllFoodItem(FoodItemList);
   String testOutput = "";
   allFoodItem = C206_CaseStudy.retrieveAllFoodItem(FoodItemList);
-  testOutput = String.format("%-5s %-10s\n", 1, "FOOD ITEM", 1, 2);
-  testOutput += String.format("%-5s %-10s\n", 2, "FOOD ITEM", 3, 5);
+  testOutput = String.format("%-10s %40d\n", "Cupcake", 3);
+  testOutput += String.format("%-10s %40d\n", "Chicken", 4);
   assertEquals("Check that getFoodItem", testOutput, allFoodItem);
 }
 @Test
@@ -218,9 +229,10 @@ public void testupdateFoodItem() {
 	C206_CaseStudy.addFoodItem(FoodItemList, FI1);
 	assertEquals("Test if the Stall arraylist size is 1: ", 1, FoodItemList.size());
 	
-	//Test that after updating, Stall quantity increases by 1
-	C206_CaseStudy.addFoodItem(FoodItemList, FI1.getFoodItemName());
-	assertEquals("Test if the Stall increased by 1: ", 3, FI1.getFoodItemName());
+	//Test that after updating, food price increase by 30% 
+	// fixed by Hui Ting
+	C206_CaseStudy.UpdateFood(FoodItemList);
+	assertEquals("Test if the item has increased price: ", 4, FI1.getFoodItemSellingPrice());
 }
 
 	//======================== Test Purchase Order - Austin =================================
@@ -299,12 +311,11 @@ public void testupdateFoodItem() {
 		
 	}
 	@Test
-		public void testRetrieveAllStall() {
+	public void testRetrieveAllStall() {
 		// test if Stall list is not null but empty, so that can add new Stall
 		assertNotNull("Test if there is valid Stall arraylist to add to ", StallList);
 		
 		// test if the list of Stall retrieved from the StallList is empty
-		
 		String allStall = C206_CaseStudy.retrieveAllStall(StallList);
 		String  testOutput ="";
 		assertEquals("Check ViewAllStallList", testOutput, allStall);
@@ -316,8 +327,8 @@ public void testupdateFoodItem() {
 		
 		//test if the expected output string same as the list of stalls retrieved from the Stall_test
 		allStall = C206_CaseStudy.retrieveAllStall(StallList);
-		
 	}
+	
 	@Test
 	public void testviewAllStall() {
 		//Test that StallList is not null before viewing orders
@@ -336,6 +347,7 @@ public void testupdateFoodItem() {
 		testOutput += String.format("%-10s %40s\n", "Chinese Noodle Shop", "13 May 2019");
 		assertEquals("Check that getStall", testOutput, allStall);
 	}
+	
 	@Test
 	public void testRemoveStall() {
 		C206_CaseStudy.addStall(StallList, s1);
@@ -352,6 +364,7 @@ public void testupdateFoodItem() {
 		C206_CaseStudy.deleteStall(StallList);
 		assertEquals("Test if Stall arraylist is empty: " , 0, StallList.size());
 	}
+	
 	@Test
 	public void testupdateStall() {
 		//Test that StallList is not null before updating Stalls
@@ -365,6 +378,5 @@ public void testupdateFoodItem() {
 		C206_CaseStudy.UpdateStall(StallList, s1.getStallName(), s1.getDate());
 		assertEquals("Test if the Stall name changed: ", "Char Siew Rice Shop", s1.getStallName());
 	}
-
 
 }
