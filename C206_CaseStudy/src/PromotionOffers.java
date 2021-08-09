@@ -43,4 +43,10 @@ public class PromotionOffers extends FoodItem {
 	public void setFoodItemPromotionPrice(int foodItemPromotionPrice) {
 		this.foodItemPromotionPrice = foodItemPromotionPrice;
 	}
+	
+	public String printInfo() {
+		String output = String.format("%-10s $%-9d $%-19d %-19s %-15s\n", getFoodItemName(), getFoodItemSellingPrice(), 
+				getFoodItemPromotionPrice(), getStartDate(), getEndDate());
+		return output;
+	}
 }
