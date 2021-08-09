@@ -6,16 +6,13 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 		
 		ArrayList<FoodItem> foodItemList = new ArrayList<FoodItem>();
-		//for testing
-
 		foodItemList.add(new FoodItem("Cupcake", 3));
 		foodItemList.add(new FoodItem("Chicken", 4));
 		
 		ArrayList<PromotionOffers> promoList = new ArrayList<PromotionOffers>();
-//		promoList.add(new PromotionOffers("food", 2, 1, "5/8/2021", "6/8/2021"));
+		//promoList.add(new PromotionOffers("food", 2, 1, "5/8/2021", "6/8/2021"));
 		
 		ArrayList<CustomerOrder> orderList = new ArrayList<CustomerOrder>();
-		//for testing
 		orderList.add(new CustomerOrder(0, "-", 0, 0));
 
 		ArrayList<Stall> StallList = new ArrayList<Stall>();
@@ -25,7 +22,6 @@ public class C206_CaseStudy {
 		OrderList.add(new PurchaseOrder("2231", "25/5/20", "Milo", 8));
 		OrderList.add(new PurchaseOrder("1222", "30/5/20", "Milk", 9));
 		OrderList.add(new PurchaseOrder("3331", "1/6/21", "Tea", 3));
-
 
 		int option = 0;
 		int optionCA = 0;
@@ -50,7 +46,7 @@ public class C206_CaseStudy {
 						C206_CaseStudy.menuCAS();
 						optionCAS = Helper.readInt("Enter an option > ");
 						
-						while (optionCAS != 5){
+						while (optionCAS != 5) {
 						
 							if (optionCAS == 1) {// Add new Stall
 								 Stall ns = inputStall();
@@ -129,7 +125,6 @@ public class C206_CaseStudy {
 						C206_CaseStudy.PurchaseOrder(); 
 						optionPO = Helper.readInt("Enter an option > ");
 						if (optionPO == 1) {
-
 							PurchaseOrder p = inputPurchaseOrder();
 							C206_CaseStudy.addPurchaseOrder(OrderList, p);
 
@@ -174,12 +169,10 @@ public class C206_CaseStudy {
 							} else if (optionSSPO == 5) {
 								System.out.println("Quit...");
 								
-								
 							} else {
 								System.out.println("Invalid Option");
 							}
 						}
-						
 					} else if (optionSS == 4) {
 						System.out.println("Return back to Role Selection...");
 						
@@ -236,7 +229,6 @@ public class C206_CaseStudy {
 				System.out.println("Invalid option");
 			}
 		}
-
 	}
 
 	public static void menuRole() {
@@ -317,11 +309,8 @@ public class C206_CaseStudy {
 		System.out.println("5. Quit");
 	}
 
-
-	
 	public static String showAvailability(boolean isAvailable) {
 		String avail;
-
 		if (isAvailable == true) {
 			avail = "Yes";
 		} else {
@@ -337,18 +326,13 @@ public class C206_CaseStudy {
 	public static Stall inputStall() {
 		String sname = Helper.readString("Enter Stall Name > ");
 		String doo = Helper.readString("Enter Date of Operation > ");
-
 		Stall ns = new Stall(sname, doo);
 		return ns;
-
 	}
 
 	public static void addStall(ArrayList<Stall> StallList, Stall ns) {
-
 		StallList.add(ns);
-
 		System.out.println("new Stall added");
-
 	}
 
 	// ================================= Option 1.1.2 - View stalls =================================
@@ -358,7 +342,6 @@ public class C206_CaseStudy {
 		String output = "";
 
 		for (int i = 0; i < StallList.size(); i++) {
-
 			output += String.format("%-10s %40s\n", StallList.get(i).getStallName(), StallList.get(i).getDate(),
 					StallList.get(i).getStallName(), C206_CaseStudy.showAvailability(StallList.get(i).getStallName()),
 					StallList.get(i).getDate());
@@ -380,12 +363,8 @@ public class C206_CaseStudy {
 	public static String retrieveAllStall1(ArrayList<Stall> StallList) {
 		String output = "";
 
-		// write your code here
-
 		for (int i = 0; i < StallList.size(); i++) {
-
 			output += String.format("%-10s %-40s\n", StallList.get(i).getStallName(), StallList.get(i).getDate());
-
 		}
 		return output;
 	}
@@ -553,10 +532,6 @@ public class C206_CaseStudy {
 	// ================================= Option 2 - Stall Staff =================================
 	// ================================= Option 2.1 - View orders and update status  =================================
 	
-	
-	
-	
-	
 	// ================================= Option 2.2.1 - Add purchase orders   =================================
 	//austin
 	public static PurchaseOrder inputPurchaseOrder() {
@@ -567,20 +542,17 @@ public class C206_CaseStudy {
 
 		PurchaseOrder cc = new PurchaseOrder(POnum, PODate, ingredientsDesc, ingredientsQty);
 		return cc;
-
 	}
 	
 	public static void addPurchaseOrder(ArrayList<PurchaseOrder> PurchaseList, PurchaseOrder cc) {
-
 		PurchaseList.add(cc);
 		System.out.println("Purchase order added");
 	}
 
 	public static String retrieveAllPurchaseOrder(ArrayList<PurchaseOrder> PurchaseList) {
 		String output = "";
-
+		
 		for (int i = 0; i < PurchaseList.size(); i++) {
-
 			output += String.format("%-10s %-20s %-30s %-20s\n", PurchaseList.get(i).getPONum(),
 					PurchaseList.get(i).getPODate(), PurchaseList.get(i).getIngredientsDesc(), PurchaseList.get(i).getIngredientsQty());
 
@@ -630,20 +602,19 @@ public class C206_CaseStudy {
 	    System.out.print("Delete Purchase Order\n");
 	    Helper.line(50, "-");
 	    
-
 			boolean isDeleted = false;
 			  String Purchaseo = Helper.readString("Enter purchase order that you wish to delete > ");
 			    for (int i = 0; i < PurchaseList.size(); i++) {
 			    	if (PurchaseList.get(i).getPONum().equalsIgnoreCase(Purchaseo)) {
 			    		PurchaseList.remove(i); 
 			    		isDeleted = true;
-		}
-						
-			}if (isDeleted == true) {
-				System.out.println("Purchase has been deleted successfully");
-			}else if (isDeleted == false) {
-				System.out.println("Purchase has not been deleted successfully");
-			}
+			    	}
+			    } 
+			    if (isDeleted == true) {
+			    	System.out.println("Purchase has been deleted successfully");
+			    } else if (isDeleted == false) {
+			    	System.out.println("Purchase has not been deleted successfully");
+			    }
 		}
 	
 	// ================================= Option 2.3.1 - Add Promotion Offers   =================================
@@ -675,7 +646,6 @@ public class C206_CaseStudy {
 		}
 		if (isValid == true) {
 			po = new PromotionOffers(foodName, foodItemPrice, promoprice, startDate, endDate);
-
 		}
 		else if (isValid == false) {
 			po = null;
@@ -693,7 +663,6 @@ public class C206_CaseStudy {
 	
 	// ================================= Option 2.3.2 - View Promotion Offers   =================================
 	public static void viewPromotionOffers(ArrayList<PromotionOffers> promoList) {
-		
 		String output = "";
 		output += String.format("%-10s %-10s %-20s %-19s %-15s\n", "Food Name", "Food Price", 
 				"Promotion Price", "Start Date", "End Date");
@@ -710,15 +679,12 @@ public class C206_CaseStudy {
 	public static void changePromo(ArrayList<PromotionOffers> promoList, String foodName, int updatePrice) {
 		boolean isValid = false;
 		
-		
-		
 		for (PromotionOffers p : promoList) {
 			if (foodName.equalsIgnoreCase(p.getFoodItemName())) {
 				p.setFoodItemPromotionPrice(updatePrice);
 				isValid = true;
 			}
 		}
-		
 		if (isValid == true) {
 			System.out.println("Updated Promotion Price Successful!");
 		}
@@ -728,17 +694,12 @@ public class C206_CaseStudy {
 	}
 	// ================================= Option 2.3.4 - Remove Promotion Offers   =================================
 	public static void removePromo(ArrayList<PromotionOffers> promoList, String itemName) {
-		
 		boolean isValid = false;
 		
-		
 		for (PromotionOffers p : promoList) {
-			
 			if (itemName.equalsIgnoreCase(p.getFoodItemName())) {
-				
 				char cfm = Helper.readChar("Confirm removal of Promotion? (Y/N) > ");
 				if (cfm == 'Y' || cfm == 'y') {
-					
 					promoList.remove(p);
 					System.out.println("Item removed successfully!");
 					
@@ -817,7 +778,6 @@ public class C206_CaseStudy {
 	
 	public static String getPromo(ArrayList<PromotionOffers> promoList) {
 		String output = "";
-		
 		for (PromotionOffers po : promoList) {
 			output += po.printInfo();
 		}
@@ -826,7 +786,6 @@ public class C206_CaseStudy {
 
 	public static String getOrder(ArrayList<CustomerOrder> orderList) {
 		String output = "";
-
 		for (CustomerOrder o : orderList) {
 			output += o.printInfo();
 		}
@@ -877,7 +836,6 @@ public class C206_CaseStudy {
 	public static void removeOrder(ArrayList<CustomerOrder> orderList, int input, char cfm) {
 		boolean isValid = false;
 		
-		
 		for (CustomerOrder o : orderList) {
 			if (input == o.getOrderID()) {
 				isValid = true;
@@ -888,7 +846,6 @@ public class C206_CaseStudy {
 				} else {
 					System.out.println("Removal of Order cancelled...");
 					break;
-				
 				}
 			}
 		}
@@ -896,16 +853,4 @@ public class C206_CaseStudy {
 			System.out.println("Order ID does not exist.");
 		}
 	}
-public static void addFoodItem(ArrayList<FoodItem> foodItemList, String foodItemName) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 }
-
-
-
-
-
-
