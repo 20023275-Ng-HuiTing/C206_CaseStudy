@@ -134,7 +134,7 @@ public class C206_CaseStudy {
 						} else if (optionPO == 2) {
 							C206_CaseStudy.viewAllPurchaseOrder(OrderList);
 						} else if (optionPO == 3) {
-							C206_CaseStudy.PurchaseOrder(OrderList);
+							C206_CaseStudy.deletePurchaseqty(OrderList);
 						}
 						else if (optionPO == 4) {
 							C206_CaseStudy.deletePurchaseOrder(OrderList);
@@ -603,28 +603,27 @@ public class C206_CaseStudy {
 
 	// ================================= Option 2.2.3 - Change purchase orders   =================================
 	//austin
-	public static boolean PurchaseOrder(ArrayList<PurchaseOrder> PurchaseList) {
-		String POnum = Helper.readString("Enter purchase number > ");
-
-		boolean	isUpdated = false;
-
-		for (int i = 0; i < PurchaseList.size(); i++) {
-			if (POnum.equals(PurchaseList.get(i).getPONum())) {
-				String POnum1 = Helper.readString("Enter new purchase order number > ");
-				
-				PurchaseList.get(i).setPONum(POnum1);
-				System.out.println("Purchase order number has been updated");
-				break;
-				
-			} else {
-				System.out.println("The purchase order number is invalid");
-				isUpdated = true;
-				break;
-
-			}
-		}
-
-		return isUpdated; 
+	
+	public static boolean deletePurchaseqty(ArrayList<PurchaseOrder> PurchaseList) {
+	    Helper.line(50, "-");
+	      System.out.print("Delete Purchase Quantity \n");
+	      Helper.line(50, "-");
+	      
+	      boolean isDeleted = false;
+	   
+	      String PO = Helper.readString("Enter Purchase order you wish to update > ");
+	      int newqty = Helper.readInt("Enter new quantity >");
+	          for (int i = 0; i < PurchaseList.size(); i++) {
+	            if (PurchaseList.get(i).getPONum().equals(PO)) {
+	              PurchaseList.get(i).setIngredientsQty(newqty);
+	              isDeleted = true;
+	            }
+	          } if (isDeleted == true) {
+	        System.out.println("Purchase has been updated successfully");
+	      }else if (isDeleted == false) {
+	        System.out.println("Purchase has not been updated successfully");
+	      }
+		return isDeleted; 
 	}
 	// ================================= Option 2.2.4 - Remove purchase orders   =================================
 	//austin
