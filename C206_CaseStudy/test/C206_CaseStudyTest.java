@@ -58,7 +58,7 @@ public class C206_CaseStudyTest {
 		//fail("Not yet implemented"); 
 		assertTrue("C206_CaseStudy_SampleTest ",true);
 	}
-	
+
 	//======================== Order test method - Hui Ting =================================
 	@Test
 	public void testAddOrder() {
@@ -184,7 +184,7 @@ public void testviewAllFoodItem() {
 }
 	
 	@Test
-	public void TestaddPurchaseOrder() {
+	public void TestaddPurchaseOrder() {     //austin
 		// Purchase list is not null, so that can add new purchase order
 		assertNotNull("Check if there is valid PurchaseOrder arraylist to add to", PurchaseList);
 		
@@ -199,7 +199,7 @@ public void testviewAllFoodItem() {
 		assertSame("Check that PurchaseOrder is added", PO2, PurchaseList.get(1));
 	}
 	@Test
-public void TestViewAllPurchaseOrder() {
+public void TestViewAllPurchaseOrder() {         //austin
 		
 //		Test if PurchaseList is not null but empty - boundary
 		assertNotNull("Test if there is valid PurchaseOrder arraylist to retrieve purchase order", PurchaseList);
@@ -229,7 +229,7 @@ public void TestViewAllPurchaseOrder() {
 		
 	}
 		@Test
-		public void deletePurchaseOrder() {
+		public void TestdeletePurchaseOrder() {   //austin
 			
 //			Test if purchase order list is not null but empty - boundary
 			assertNotNull("Test if there is purchase order arraylist to retrieve purchase order", PurchaseList);
@@ -249,4 +249,18 @@ public void TestViewAllPurchaseOrder() {
 		}
 
 
-}
+	@Test
+	public void TesteditPurchaseOrder() {   //austin
+		
+			//Test that orderList is not null before updating orders
+			assertNotNull("Test if there is a valid PurchaseOrder arraylist to update", orderList);
+			
+			//Given an empty list, after adding 1 object, size of list will be 1
+			C206_CaseStudy.addPurchaseOrder(PurchaseList, PO1);
+			assertEquals("Test if the PurchaseOrder arraylist size is 1: ", 1, PurchaseList.size());
+			
+			//Test that after updating, purchase order quantity increases by 1
+			C206_CaseStudy.deletePurchaseqty(PurchaseList);
+			assertEquals("Test if the Purchase quantity isupdated: ", 3, PO1.getIngredientsQty());
+		}
+	}
